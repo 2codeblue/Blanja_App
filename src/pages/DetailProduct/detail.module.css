@@ -1,0 +1,80 @@
+.con{
+    height: 250vh;
+}
+
+.prodformleft{
+    width: 30vw;
+}
+
+.prodformright{
+    width: 80vw;
+}
+
+.prodPicLower{
+    width: 366px;
+    height: 69px;
+}
+
+.lowerPic{
+    width: 69px;
+    border-radius: .25rem;
+}
+
+.formButton{
+    border-radius: 2rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    outline: #D4D4D4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonMin{
+    background-color: #D4D4D4;
+    color: #FFFFFF;
+}
+
+.buttonPlus{
+    background: #FFFFFF;
+    color: #222222;
+
+}
+
+.sizeText{
+    text-align: center;
+}
+
+.lowerButtons{
+    border-radius: 1.5rem;
+    font-size: 1.5rem;
+    padding: 1rem
+}
+
+.whiteButton{
+    width: 10rem;
+}
+
+.redButton{
+    width: 20rem;
+    background-color: #DB3022;
+    color: white;
+}
+
+.descriptionProd{
+    height: 85vh;
+}
+
+.productRating{
+    width: 40vw;
+}
+
+.ratingText{
+    font-size: 1.25rem;
+}
+
+.starPic{
+    position: absolute;
+    margin-left: -1rem;
+}
