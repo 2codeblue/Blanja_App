@@ -60,7 +60,7 @@ const DetailProduct = () => {
 
             </div>
         </div>
-        <div className={`${styles.prodformright} h-100 ms-1`}>
+        <div className={`${styles.prodformright} h-100 ms-5`}>
             <h1 className='mb-3'>Baju Muslim Pria</h1>
             <p className='text-secondary mb-3'>Zalora Cloth</p>
             <img src={ProdRating} alt="" />
@@ -176,7 +176,7 @@ const DetailProduct = () => {
 
             </div>
         </div>
-        <img src={Line} alt="" />
+        <img src={Line} alt="" className={styles.line}/>
     </section>
 
     <h3 className='mt-5'>You can also like</h3>
@@ -190,6 +190,9 @@ const DetailProduct = () => {
                     <CardProduct/>
                     <CardProduct/>
                     <CardProduct/>
+                    <CardProduct/>
+                    <CardProduct/>
+
 
             </div>
         </div>
