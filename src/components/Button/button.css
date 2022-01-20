@@ -1,0 +1,15 @@
+.btn-input {
+  height: 48px;
+  width: 401px;
+  outline: none;
+  border: none;
+  margin-top: 5vh;
+  background: #273AC7;
+  border-radius: 25px;
+  color: #ffffff;
+}
+.btn-input:hover{
+    background-color: #ffffff;
+    color: #aaa;
+    border: 0.5px solid #aaa;
+}

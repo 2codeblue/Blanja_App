@@ -1,0 +1,9 @@
+.input {
+  height: 48px;
+  width: 480px;
+  margin-top: 2vh;
+  border: 1px solid #9b9b9b;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+}
