@@ -103,7 +103,7 @@ const DetailProduct = () => {
                     className={`${styles.lowerButtons} bg-white ${styles.whiteButton}`}>
                         Add Bag</Button>
                     <Button 
-                    className={`${styles.lowerButtons} ${styles.redButton}`}>
+                    className={`${styles.lowerButtons} ${styles.redButton} bg-primary`}>
                         Buy Now</Button>
                 </div>
 
