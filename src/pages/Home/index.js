@@ -15,7 +15,13 @@ const HomePage = () => {
               <section>
                   <h2>New</h2>
                   <p className='text-black-50'>You’ve never seen it before!</p>
-                  <div className="card-container d-flex flex-wrap justify-content-around">
+                  <div className="card-container d-flex flex-wrap flex-fill justify-content-center">
+                    <CardProduct/>
+                    <CardProduct/>
+                    <CardProduct/>
+                    <CardProduct/>
+                    <CardProduct/>
+                    <CardProduct/>
                     <CardProduct/>
                   </div>
               </section>

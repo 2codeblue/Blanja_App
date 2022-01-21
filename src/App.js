@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
+import ConfirmPass from './pages/Auth/ConfirmPass';
 import Login from './pages/Auth/Login';
+import ResetPass from './pages/Auth/ResetPass';
+import SignUp from './pages/Auth/SignUp';
 import DetailProduct from './pages/DetailProduct';
 import HomePage from './pages/Home';
 
@@ -10,11 +13,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/detail-product/:id" element={<DetailProduct/>}/>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/home" element={<HomePage/>}/>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/reset-password" element={<ResetPass/>}/>
+        <Route path="/confirmation-password" element={<ConfirmPass/>}/>
       </Routes>
     </BrowserRouter>
-
     );
 }
 
