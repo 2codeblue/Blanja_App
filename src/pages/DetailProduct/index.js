@@ -6,8 +6,10 @@ import styles from "./detail.module.css";
 import ProdPic from "../../assets/img/prodPic.svg";
 import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
+import { useNavigate } from "react-router-dom";
 
 const DetailProduct = () => {
+  const navigate = useNavigate();
   const [size, setSize] = useState(36);
   const [qty, setQty] = useState(0);
 
@@ -119,7 +121,8 @@ const DetailProduct = () => {
                 </Button>
                 <Button
                   className={`${styles.lowerButtons} bg-primary ${styles.redButton}`}
-                >
+                  onClick={()=>navigate("/checkout")}
+                  >
                   Buy Now
                 </Button>
               </div>

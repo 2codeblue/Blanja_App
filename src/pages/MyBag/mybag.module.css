@@ -1,0 +1,68 @@
+.con{
+    height: 100vh;
+}
+
+.boxUpper{
+    width: 50vw;
+}
+
+.checkbox{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: .5rem
+}
+
+.checkboxLower{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 1.5rem
+}
+
+.prodImg{
+    width: 69px;
+    height: 70px;
+}
+
+.formButton{
+    border-radius: 1rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonMin{
+    background-color: #D4D4D4;
+    color: #FFFFFF;
+    border: solid 1px #D4D4D4;
+}
+
+.buttonPlus{
+    background: #FFFFFF;
+    color: #222222;
+    border: solid 1px #D4D4D4;
+}
+
+.cartSummary{
+    width: 30vw;
+}
+
+.lowerButtons{
+    border-radius: 1.5rem;
+    font-size: 1.5rem;
+    padding: .25rem;
+    border: solid 1px #D4D4D4;
+}
+
+.redButton{
+    width: 100%;
+    color: white;
+}
+
+.buttonAddress{
+    border-radius: 1.5rem;
+    padding: .25rem;
+    border: solid 1px #D4D4D4;
+}
