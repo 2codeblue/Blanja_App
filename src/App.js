@@ -10,10 +10,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+<<<<<<< HEAD
         <Route path="/" element={<Login/>}/>
         <Route path="SignUp" element={<SignUp/>}/>
         <Route path="Reset-Password" element={<ResetPass/>}/>
         <Route path="Confirmation-Password" element={<ConfirmPass/>}/>
+=======
+        {/* <Route path="/" element={<Login/>}/> */}
+>>>>>>> 94b5b07bce10f079b0e9a13aa7f858db1cd1b32e
       </Routes>
     </BrowserRouter>
   );
