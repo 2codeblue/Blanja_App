@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -31,8 +32,8 @@ const SignUp = () => {
     <Main>
       <h5 className="fw-bold my-4">Please sign up with Your Account</h5>
       <div className="my-2">
-        <Button>Customer</Button>
-        <Button>Seller</Button>
+        <Button className="btn-tabs">Customer</Button>
+        <Button className="btn-tabs">Seller</Button>
       </div>
       <Input 
         placeholder="Name"
@@ -70,7 +71,7 @@ const SignUp = () => {
         onChange={handleChange} 
       />
       <Button className="btn-input">Primary</Button>
-      <h6>Already have a Tokopedia account? Login</h6>
+      <h6>Already have a Tokopedia account ? <Link to="/" className="text-decoration-none"> Login</Link></h6>
     </Main>
   );
 };
