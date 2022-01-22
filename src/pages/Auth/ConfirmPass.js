@@ -20,7 +20,7 @@ const ConfirmPass = () => {
   return (
       <Main>
           <h5 className='my-3'>Reset Password</h5>
-          <p className='text-danger'>You need to change your password to activate your account</p>
+          <p className='text-primary'>You need to change your password to activate your account</p>
           <Input 
             placeholder="Password"
             name="password"
@@ -35,7 +35,7 @@ const ConfirmPass = () => {
             value={form.confirm_password}
             onChange={handleChange}
           />
-          <p className='text-danger'>Forgot Password ?</p>
+          <p className='text-primary'>Forgot Password ?</p>
           <Button className="btn-input">Primary</Button>
       </Main>
   );
