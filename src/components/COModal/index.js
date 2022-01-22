@@ -4,6 +4,7 @@ import './modal.css'
 
 const COModal = ({handleModal}) => {
 
+    // methods pake use state get data dari backend
     const methods = [{
         id: 1,
         name: "Gopay",
