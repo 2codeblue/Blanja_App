@@ -3,9 +3,11 @@ import Navbar from '../../components/Navbar';
 import styles from '../MyBag/mybag.module.css'
 import ProdImg from '../../assets/img/mybagimg.svg'
 import Button from '../../components/Button';
+import COModal from '../../components/COModal';
 
 
 const Checkout = () => {
+    // eslint-disable-next-line no-unused-vars
     const [cart, setCart] = useState([{
         id: 1,
         name: "sepatu bagus",
@@ -26,6 +28,10 @@ const Checkout = () => {
         seller: "Shopee Cloth",
         qty: 3
     }])
+
+    const [displayModal, setDisplayModal] = useState(false)
+
+    const handleModal = () => setDisplayModal(!displayModal)
 
   return( 
     <main className={`containder-fluid bg-white ${styles.con}`}>
@@ -50,10 +56,12 @@ const Checkout = () => {
           return (
               <div className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
               <div className="wrapper d-flex w-100 justify-content-between">
-                    <img src={ProdImg} className={`${styles.prodImg} me-3`} alt="" />  
+                  <div className={`d-flex ${styles.width1}`}>
+                  <img src={ProdImg} className={`${styles.prodImg} me-3`} alt="" />  
                     <h6 className='mt-3'>{cartItem.name} <br/>
                     <span className='text-secondary'>{cartItem.seller}</span></h6>
-                    <div className={`${styles.formButton} mt-3`}>x {cartItem.qty}</div>
+                  </div>
+                    <div className={`${styles.formButtons} mt-3 fw-bold`}>x {cartItem.qty}</div>
                     <h6 className="price mt-3">$ {cartItem.price}</h6>
                   </div>
               </div>
@@ -74,12 +82,14 @@ const Checkout = () => {
 
             <Button
             className={`${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`}
+            onClick={handleModal}
             >Payment Method
                 </Button>
             </div>
         </div>
     </section>    
     </div>
+    {displayModal && <COModal handleModal= {handleModal}/>}
     </main>
 )
 };

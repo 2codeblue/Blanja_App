@@ -23,6 +23,8 @@ const MyBag = () => {
         qty: 3
     }])
 
+    const [array, setArray] = useState([])
+
 
     const [checkedState, setCheckedState] = useState(
         new Array(cart.length).fill(false)
@@ -46,9 +48,9 @@ const MyBag = () => {
 
     const [total, setTotal] = useState(0);
 
-    const handleOnChange = (position) => {
+    const handleOnChange = (id) => {
         const updatedCheckedState = checkedState.map((item, index) =>
-        index === position ? !item : item
+        index + 1 === id ? !item : item
         );
 
         setCheckedState(updatedCheckedState);
@@ -62,9 +64,19 @@ const MyBag = () => {
         },
         0
         );
-
         setTotal(totalPrice)
     }
+
+    const handleCheckedValue = (e) =>{
+      if(e.target.checked){
+        let id = e.target.value;
+        setArray([...array, id])
+      }
+  }
+    console.log(array);
+
+
+
     const handleIncrementQty = (id) => {
         const index = cart.findIndex(item => item.id === id)
         let cartItem = cart[index]
@@ -117,18 +129,18 @@ const MyBag = () => {
           </div>
       </div>
                                     {/* cart items here using dummy data from cart array*/}
-        {cart.map((cartItem, index)=>{
+        {cart.map((cartItem)=>{
             return (
                 <div className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
                 <div className="wrapper d-flex w-100 justify-content-between">
-                  <div className="d-flex">
+                <div className={`d-flex ${styles.width1}`}>
                       <Input 
-                      key= {index}
                       type="checkbox" 
                       name={cartItem.name} 
-                      value={cartItem.name} 
+                      value={cartItem.id} 
                       className={`me-3 ${styles.checkboxLower}`}
-                      onChange={() => handleOnChange(index)}
+                      onChange={(e) => { handleCheckedValue(e); handleOnChange(cartItem.id) } }
+                      defaultChecked={false}
                       />
                       <img src={ProdImg} className={`${styles.prodImg} me-3`} alt="" />  
                       <h6 className='mt-3'>{cartItem.name} <br/>

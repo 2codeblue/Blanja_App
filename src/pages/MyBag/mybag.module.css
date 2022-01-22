@@ -27,7 +27,7 @@
     border-radius: 1rem;
     width: 2rem;
     height: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,4 +65,12 @@
     border-radius: 1.5rem;
     padding: .25rem;
     border: solid 1px #D4D4D4;
+}
+
+.formButtons{
+    font-size: 1rem;
+}
+
+.width1{
+    width: 15rem;
 }
