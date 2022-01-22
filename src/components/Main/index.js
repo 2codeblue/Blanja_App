@@ -8,7 +8,6 @@ const Main = ({children}) => {
             <img src="images/shopping-bag 1.svg" alt="" />
             <h1 className='title'> Blanja</h1>
         </div>
-        
         {children}
   </div>
   );
