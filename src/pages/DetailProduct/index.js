@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
 import Button from "../../components/Button";
 import Navbar from "../../components/Navbar";
 import CardProduct from "../../components/CardProduct";
@@ -6,7 +7,6 @@ import styles from "./detail.module.css";
 import ProdPic from "../../assets/img/prodPic.svg";
 import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
-import { useNavigate } from "react-router-dom";
 
 const DetailProduct = () => {
   const navigate = useNavigate();
