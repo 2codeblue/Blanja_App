@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
 import Button from "../../components/Button";
 import Navbar from "../../components/Navbar";
 import CardProduct from "../../components/CardProduct";
@@ -8,6 +9,7 @@ import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
 
 const DetailProduct = () => {
+  const navigate = useNavigate();
   const [size, setSize] = useState(36);
   const [qty, setQty] = useState(0);
 
@@ -118,8 +120,9 @@ const DetailProduct = () => {
                   Add Bag
                 </Button>
                 <Button
-                  className={`${styles.lowerButtons} ${styles.redButton}`}
-                >
+                  className={`${styles.lowerButtons} bg-primary ${styles.redButton}`}
+                  onClick={()=>navigate("/checkout")}
+                  >
                   Buy Now
                 </Button>
               </div>
@@ -129,7 +132,7 @@ const DetailProduct = () => {
           <section className={`${styles.descriptionProd}`}>
             <h3 className="my-5">Product Information</h3>
             <h5>Condition</h5>
-            <h4 className="text-danger mb-5">NEW</h4>
+            <h4 className="text-primary mb-5">NEW</h4>
 
             <h5 className="mt-5">Description</h5>
             <p className="text-secondary mb-5">
