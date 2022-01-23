@@ -11,7 +11,7 @@
 }
 
 .prodPicLower{
-    width: 366px;
+    width: 378px;
     height: 69px;
 }
 
@@ -82,4 +82,9 @@
 
 .line{
     width: 100%
+}
+
+.prodPic{
+    width: 378px;
+    height: 378px;
 }

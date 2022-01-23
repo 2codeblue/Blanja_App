@@ -3,3 +3,12 @@
     box-shadow: 0px 0px 14px rgba(173, 173, 173, 0.25);
     cursor: pointer;
 }
+
+.cardProdImg{
+    object-fit: cover;
+}
+
+.imgWrapper{
+    width: 238px;
+    height: 136px;
+}
