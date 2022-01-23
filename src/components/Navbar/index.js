@@ -14,7 +14,7 @@ const Navbar = () => {
           <div className={`container bg-white d-flex py-4 align-items-center`}>
               <div className="left w-25 text-primary"><h3>Blanja</h3></div>
               <div className="mid w-50"><Input placeholder='Search' className={`${styles.src} w-75 px-3`}/></div>
-              <div className="right d-flex w-25 justify-content-end">
+              <div className="right d-flex w-25 justify-content-end pe-3">
                   <div className="cart-icon fs-4 me-5 text-secondary"><FiShoppingCart/></div>
                   <div className="button">
                         <Button className={`${styles.buttonLogin} btn bg-primary text-white`}>Login</Button>
