@@ -1,8 +1,10 @@
 import React from 'react';
-import CardProduct from '../../components/CardProduct';
-import HomeCarousel from '../../components/HomeCarousel';
+// import HomeCarousel from '../../components/HomeCarousel';
 import MainHome from '../../components/MainHome';
 import Navbar from '../../components/Navbar';
+import NewProduct from '../../components/NewProduct';
+import PopularProduct from '../../components/PopularProduct';
+import TopCarousel from '../../components/TopCarousel';
 
 const HomePage = () => {
   return (
@@ -10,21 +12,14 @@ const HomePage = () => {
           <Navbar/>
           <MainHome>
               <section>
-                <HomeCarousel/>  
+                <TopCarousel/>
+                {/* <HomeCarousel/>   */}
               </section>
               <section>
-                  <h2>New</h2>
-                  <p className='text-black-50'>You’ve never seen it before!</p>
-                  <div className="card-container d-flex flex-wrap justify-content-around">
-                    <CardProduct/>
-                  </div>
+                  <NewProduct/>
               </section>
               <section>
-                  <h2>Popular</h2>
-                  <p className='text-black-50'>Find clothes that are trending recently</p>
-                  <div className="card-container d-flex flex-wrap justify-content-around">
-                    <CardProduct/>
-                  </div>
+                  <PopularProduct/>
               </section>
           </MainHome>
       </div>
