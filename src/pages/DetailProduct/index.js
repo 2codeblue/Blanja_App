@@ -17,6 +17,7 @@ const DetailProduct = () => {
   const [qty, setQty] = useState(1);
   const {id} = useParams()
   const [product, setProduct] = useState([])
+  const {products, setProducts} = useContext(productContext)
   const [itemToCart, setItemToCart] = useState([])
 
   useEffect(() => {
@@ -97,7 +98,7 @@ const DetailProduct = () => {
   };
 
   const handleDecrementQty = () => {
-    if (qty === 0) {
+    if (qty === 1) {
       setQty(1);
     } else {
       setQty(qty - 1);
