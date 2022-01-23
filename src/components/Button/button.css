@@ -3,13 +3,27 @@
   width: 401px;
   outline: none;
   border: none;
-  margin-top: 5vh;
-  background: #273AC7;
+  margin-top: 4vh;
+  background: #273ac7;
   border-radius: 25px;
   color: #ffffff;
 }
-.btn-input:hover{
-    background-color: #ffffff;
-    color: #aaa;
-    border: 0.5px solid #aaa;
+.btn-input:hover {
+  background-color: #ffffff;
+  color: #aaa;
+  border: 0.5px solid #aaa;
+}
+
+.btn-tabs {
+  width: 123px;
+  height: 48px;
+  color: #9B9B9B;
+  border: 1px solid #9b9b9b;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+}
+
+.btn-tabs:hover{
+  background-color: #273ac7;
+  color: #ffffff;
 }
