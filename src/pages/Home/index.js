@@ -1,5 +1,4 @@
 import React from 'react';
-// import HomeCarousel from '../../components/HomeCarousel';
 import MainHome from '../../components/MainHome';
 import Navbar from '../../components/Navbar';
 import NewProduct from '../../components/NewProduct';
@@ -13,7 +12,6 @@ const HomePage = () => {
           <MainHome>
               <section>
                 <TopCarousel/>
-                {/* <HomeCarousel/>   */}
               </section>
               <section>
                   <NewProduct/>
