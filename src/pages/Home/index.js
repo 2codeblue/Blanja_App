@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
 import axios from 'axios'
@@ -5,6 +6,8 @@ import CardProduct from "../../components/CardProduct";
 import MainHome from "../../components/MainHome";
 import Navbar from "../../components/Navbar";
 import TopCarousel from '../../components/TopCarousel';
+import CategoryHome from '../../components/CategoryHome';
+
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -32,7 +35,10 @@ const HomePage = () => {
           <TopCarousel />
         </section>
         <section>
-          <h2>New</h2>
+          <CategoryHome/>
+        </section>
+        <section>
+          <h2 className='mt-5'>New</h2>
           <p className="text-black-50">You’ve never seen it before!</p>
           <div className="card-container d-flex flex-wrap flex-fill justify-content-center">
             {
