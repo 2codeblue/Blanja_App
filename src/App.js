@@ -7,7 +7,7 @@ import ResetPass from './pages/Auth/ResetPass';
 import SignUp from './pages/Auth/SignUp';
 import DetailProduct from './pages/DetailProduct';
 import HomePage from './pages/Home';
-import ProfileCustomer from './pages/Profile/Customer';
+import Profile from './pages/Profile/Customer.js/Profile';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPass/>}/>
         <Route path="/confirmation-password" element={<ConfirmPass/>}/>
         <Route path="/detail-product" element={<DetailProduct/>}/>
-        <Route path="/profile-customer" element={<ProfileCustomer/>}/>
+        <Route path="/profile-customer" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
     );
