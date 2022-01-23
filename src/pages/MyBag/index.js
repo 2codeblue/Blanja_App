@@ -1,29 +1,46 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from "react";
+import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
+import axios from 'axios'
 import Input from '../../components/Input';
 import Navbar from '../../components/Navbar';
 import styles from './mybag.module.css'
 import ProdImg from '../../assets/img/mybagimg.svg'
 import Button from '../../components/Button';
-import { useNavigate } from "react-router-dom";
 
 const MyBag = () => {
     const navigate = useNavigate();
-
-    const [cart, setCart] = useState([{
-        id: 1,
-        name: "sepatu bagus",
-        price: 35000,
-        seller: "Zalora Cloth",
-        qty: 1
-    },{
-        id: 2,
-        name: "sepatu jelek",
-        price: 5000,
-        seller: "Lazadut Cloth",
-        qty: 3
-    }])
-
     const [array, setArray] = useState([])
+    const customer_bags_id = JSON.parse(localStorage.getItem('customer_bags_id'))
+    // const [cart, setCart] = useState([{
+    //     id: 1,
+    //     name: "sepatu bagus",
+    //     price: 35000,
+    //     seller: "Zalora Cloth",
+    //     qty: 1
+    // },{
+    //     id: 2,
+    //     name: "sepatu jelek",
+    //     price: 5000,
+    //     seller: "Lazadut Cloth",
+    //     qty: 3
+    // }])
+
+    const [cart, setCart] =useState([])
+
+    useEffect(() => {
+      axios({
+        baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
+        method : 'GET',
+        url : `bags/${customer_bags_id}`
+      })
+      .then((res) => {
+        const result = res.data.data
+        setCart(result)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }, [])
 
 
     const [checkedState, setCheckedState] = useState(
@@ -104,6 +121,7 @@ const MyBag = () => {
         console.log(cart);  
     }
 
+  console.log(cart)
   return (
 
   <Fragment>

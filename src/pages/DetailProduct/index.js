@@ -9,17 +9,80 @@ import styles from "./detail.module.css";
 import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
 import { productContext } from "../../Context/ProductContext";
+import { v4 as uuidv4 } from 'uuid';
 
 const DetailProduct = () => {
   const navigate = useNavigate();
   const [size, setSize] = useState(36);
-  const [qty, setQty] = useState(0);
-  const [product, setProduct] = useState({})
-
-  // eslint-disable-next-line no-unused-vars
-  const {products, setProducts} = useContext(productContext)
-
+  const [qty, setQty] = useState(1);
   const {id} = useParams()
+  const [product, setProduct] = useState([])
+  const [itemToCart, setItemToCart] = useState([])
+
+  useEffect(() => {
+    axios({
+      baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
+      method : 'GET',
+      url : `products/details/${id}`
+    })
+    .then((res) => {
+      const result = res.data.data[0]
+      setProduct(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+
+  const handleAddItemToBag = () => {
+    const customer_bags_id = JSON.parse(localStorage.getItem('customer_bags_id'))
+    if (customer_bags_id) {
+      axios({
+        baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
+        method : 'POST',
+        data : {
+          product_id : product.id,
+          customer_bags_id : customer_bags_id,
+          size : size,
+          qty : qty,
+          color : null
+        },
+        url : `/add-item`
+      })
+      .then((res) => {
+        const result = res.data.data[0]
+        setProduct(result)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    } else {
+      const customer_bags_id = uuidv4()
+      localStorage.setItem('customer_bags_id', JSON.stringify(customer_bags_id))
+      axios({
+        baseURL : `https://blanja-app-2codeblue.herokuapp.com`,
+        method : 'POST',
+        data : {
+          product_id : product.id,
+          customer_bags_id : customer_bags_id,
+          size : size,
+          qty : qty,
+          color : null
+        },
+        url : `/add-item`
+      })
+      .then((res) => {
+        const result = res.data.data[0]
+        setProduct(result)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+    }
+  }
+
+  // --------------
 
   const handleIncrementSz = () => {
     if (size < 46) {
@@ -34,8 +97,8 @@ const DetailProduct = () => {
   };
 
   const handleDecrementQty = () => {
-    if (qty <= 0) {
-      setQty(0);
+    if (qty === 0) {
+      setQty(1);
     } else {
       setQty(qty - 1);
     }
@@ -136,13 +199,14 @@ const DetailProduct = () => {
                 </Button>
                 <Button
                   className={`${styles.lowerButtons} bg-white ${styles.whiteButton}`}
+                  onClick={handleAddItemToBag}
                 >
                   Add Bag
                 </Button>
                 <Button
                   className={`${styles.lowerButtons} bg-primary ${styles.redButton}`}
-                  onClick={()=>navigate("/checkout")}
-                  >
+                  onClick={() => navigate("/checkout")}
+                >
                   Buy Now
                 </Button>
               </div>
@@ -222,7 +286,7 @@ const DetailProduct = () => {
               </div>
             </div>
           </section>
-            <hr className="mt-4"/>
+          <hr className="mt-4" />
           <section className="d-flex flex-column">
             <h3 className="mt-3">You can also like</h3>
             <p className="text-secondary my5">You've never seen it before!</p>
