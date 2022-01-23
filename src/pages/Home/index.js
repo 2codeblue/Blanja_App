@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-// import HomeCarousel from '../../components/HomeCarousel';
-import MainHome from '../../components/MainHome';
-import Navbar from '../../components/Navbar';
-import NewProduct from '../../components/NewProduct';
-import PopularProduct from '../../components/PopularProduct';
-import TopCarousel from '../../components/TopCarousel';
-=======
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
 import axios from 'axios'
@@ -14,7 +5,6 @@ import CardProduct from "../../components/CardProduct";
 import HomeCarousel from "../../components/HomeCarousel";
 import MainHome from "../../components/MainHome";
 import Navbar from "../../components/Navbar";
->>>>>>> 318f01624414d45d05b1b9daae2e7788c4180b1b
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -35,23 +25,6 @@ const HomePage = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
-      <div className="">
-          <Navbar/>
-          <MainHome>
-              <section>
-                <TopCarousel/>
-                {/* <HomeCarousel/>   */}
-              </section>
-              <section>
-                  <NewProduct/>
-              </section>
-              <section>
-                  <PopularProduct/>
-              </section>
-          </MainHome>
-      </div>
-=======
     <div className="">
       <Navbar />
       <MainHome>
@@ -81,7 +54,6 @@ const HomePage = () => {
         </section>
       </MainHome>
     </div>
->>>>>>> 318f01624414d45d05b1b9daae2e7788c4180b1b
   );
 };
 
