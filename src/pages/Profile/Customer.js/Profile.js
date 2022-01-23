@@ -1,57 +1,58 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Main from '../../../components/Main';
-import { ContentCard } from '../../../components/ContentCard';
-import { DropdownDate } from 'react-dropdown-date';
+import ContentCard from '../../../components/ContentCard/ContentCard';
+// import { DropdownDate } from 'react-dropdown-date';
 import defaultProfile from '../../../assets/img/current_profile.png';
 import Input from '../../../components/Input';
+import Sidebar from '../../../components/Sidebar/SideBarCustommer'
 
 const Profile = () => {
-  const formatDate = (date) => {
-    var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+  // const formatDate = (date) => {
+  //   var d = new Date(date),
+  //     month = '' + (d.getMonth() + 1),
+  //     day = '' + d.getDate(),
+  //     year = d.getFullYear();
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+  //   if (month.length < 2) month = '0' + month;
+  //   if (day.length < 2) day = '0' + day;
 
-    return [year, month, day].join('-');
-  };
-  const [customerProfile, setCustomerProfile] = useState(initialization);
-  const changeHandler = (e) => {
-    setCustomerProfile((oldValue) => {
-      return { ...oldValue, [e.target.name]: e.target.value };
-    });
-  };
-  useEffect(() => {
-    setCustomerProfile((oldValue) => {
-      return {
-        ...oldValue,
-        ...customer,
-        email: '',
-        avatar: '',
-        date_of_birth: new Date(customer.date_of_birth).toISOString().slice(0, 10),
-      };
-    });
-  }, []);
-  useEffect(() => {
-  }, [customerProfile]);
-  const submitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      console.log(customerProfile);
-    } catch (error) {
-      if (error.response.data.statusCode === 422) {
-        document.querySelector('.main-panel').scrollTo(0, 0);
-        ({
-          avatar: '',
-          email: '',
-        });
+  //   return [year, month, day].join('-');
+  // };
+  // const [customerProfile, setCustomerProfile] = useState([]);
+  // const changeHandler = (e) => {
+  //   setCustomerProfile((oldValue) => {
+  //     return { ...oldValue, [e.target.name]: e.target.value };
+  //   });
+  // };
+  // useEffect(() => {
+  //   setCustomerProfile((oldValue) => {
+  //     return {
+  //       ...oldValue,
+  //       ...customer,
+  //       email: '',
+  //       avatar: '',
+  //       date_of_birth: new Date(customer.date_of_birth).toISOString().slice(0, 10),
+  //     };
+  //   });
+  // }, []);
+  // useEffect(() => {
+  // }, [customerProfile]);
+  // const submitHandler = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     console.log(customerProfile);
+  //   } catch (error) {
+  //     if (error.response.data.statusCode === 422) {
+  //       document.querySelector('.main-panel').scrollTo(0, 0);
+  //       ({
+  //         avatar: '',
+  //         email: '',
+  //       });
     
-      }
-    }
-  };
+  //     }
+  //   }
+  // };
   return (
     <Main className="mb-5">
       <ContentCard
@@ -62,7 +63,7 @@ const Profile = () => {
           </Fragment>
         }
         cardBody={
-          <form onSubmit={submitHandler} className="row">
+          <form onSubmit='' className="row">
             <div className="col-lg-8 col-md-12 col-12 order-lg-0 order-1">
               <div className="row mb-3">
                 <label htmlFor="name" className="col-sm-3 col-form-label text-black-50">
@@ -73,8 +74,8 @@ const Profile = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={customerProfile.name}
-                    onChange={changeHandler}
+                    value=''
+                    onChange=''
                   />
                 </div>
               </div>
@@ -88,8 +89,8 @@ const Profile = () => {
                  
                     id="email"
                     name="email"
-                    placeholder={customer.email}
-                    onChange={changeHandler}
+                    placeholder=''
+                    onChange=''
                   />
                 </div>
               </div>
@@ -102,8 +103,8 @@ const Profile = () => {
                     type="text"
                     id="phone_number"
                     name="phone_number"
-                    value={customerProfile.phone_number === null ? '' : customerProfile.phone_number}
-                    onChange={changeHandler}
+                    value=''
+                    onChange=''
                   />
                  
                 </div>
@@ -119,8 +120,8 @@ const Profile = () => {
                       value="male"
                       name="gender"
                       id="gender_laki"
-                      onClick={changeHandler}
-                      defaultChecked={customerProfile.gender === null ? '' : customerProfile.gender}
+                      onClick=''
+                      defaultChecked=''
                       label="Laki-Laki"
                       styleLabel="me-4"
                       styleInput="me-2"
@@ -130,8 +131,8 @@ const Profile = () => {
                       value="female"
                       name="gender"
                       id="gender_perempuan"
-                      onClick={changeHandler}
-                      defaultChecked={customerProfile.gender === null ? '' : customerProfile.gender}
+                      onClick=''
+                      defaultChecked=''
                       label="Perempuan"
                       styleLabel="me-4"
                       styleInput="me-2"
@@ -145,7 +146,7 @@ const Profile = () => {
                   Date of birth
                 </label>
                 <div className="col-sm-9">
-                  {customerProfile.date_of_birth && (
+                  {/* {customerProfile.date_of_birth && (
                     <DropdownDate
                       startDate={'1945-01-01'}
                       classes={{
@@ -167,7 +168,7 @@ const Profile = () => {
                       }}
                       selectedDate={customerProfile.date_of_birth}
                     />
-                  )}
+                  )} */}
                  
                 </div>
               </div>
@@ -191,13 +192,9 @@ const Profile = () => {
                   name="avatar"
                   id="avatar"
                   accept="image/jpeg, image/png"
-                  onChange={(e) =>
-                    setCustomerProfile((oldValue) => {
-                      return { ...oldValue, avatar: e.target.files[0] };
-                    })
-                  }
+                  onChange=''
                 />
-                {customer.avatar && Customer.avatar.length > 10 && !customerProfile.avatar && (
+                {/* {customer.avatar && Customer.avatar.length > 10 && !customerProfile.avatar && (
                   <img
                     className=" rounded-circle"
                     src="../../../assets/img/current_profile.png"
@@ -232,7 +229,7 @@ const Profile = () => {
                     height="110px"
                     alt="current-profile"
                   />
-                )}
+                )} */}
                
                 <label htmlFor="avatar" className="btn btn-outline-orange rounded-pill mt-2">
                   Select image
