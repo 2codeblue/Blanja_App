@@ -19,4 +19,12 @@
     position: absolute;
     height: 3rem;
     width: 3rem;
+    cursor: pointer;
+}
+
+.left{
+    cursor: pointer;
+}
+.carticon :hover{
+    cursor: pointer;
 }

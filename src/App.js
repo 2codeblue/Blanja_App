@@ -15,6 +15,7 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import Profile from './pages/Profile';
 import Order from './pages/Profile/Order';
 import ConfirmLog from './pages/Auth/ConfirmLog';
+import CategoryPage from './pages/CategoryPage';
 
 
 function App() {
@@ -24,9 +25,12 @@ function App() {
       <Routes>
 
         <Route path="/detail-product/:id" element={<RequireAuth><DetailProduct/></RequireAuth>}/>
-        <Route path="/my-bag" element={<RequireAuth><MyBag/></RequireAuth>}/>
+        {/* <Route path="/my-bag" element={<RequireAuth><MyBag/></RequireAuth>}/> */}
+        <Route path="/my-bag" element={<MyBag/>}/>
         <Route path="/checkout" element={<RequireAuth><Checkout/></RequireAuth>}/>
-        <Route path="/" element={<RequireAuth><HomePage/></RequireAuth>}/>
+        {/* <Route path="/" element={<RequireAuth><HomePage/></RequireAuth>}/> */}
+        <Route path="/" element={<HomePage/>}/> 
+        <Route path="/category" element={<CategoryPage/>}/>
 
 
         <Route path="/profile" element={<Profile/>}/>
