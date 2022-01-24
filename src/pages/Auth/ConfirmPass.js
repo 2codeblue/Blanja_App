@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Main from '../../components/Main';
 
 const ConfirmPass = () => {
+
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     password: "",
@@ -16,6 +19,10 @@ const ConfirmPass = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleClick = ()=>{
+    navigate("/confirmation-password-login")
+  }
 
   return (
       <Main>
@@ -35,8 +42,10 @@ const ConfirmPass = () => {
             value={form.confirm_password}
             onChange={handleChange}
           />
-          <p className='text-primary'>Forgot Password ?</p>
-          <Button className="btn-input">Primary</Button>
+                  <div className="w-50 pe-5 me-5 mt-3 text-end">
+            <Link to="/reset-password" className="text-decoration-none"><p>Forgot Password ? </p></Link>
+        </div>
+          <Button className="btn-input" onClick={handleClick}>Primary</Button>
       </Main>
   );
 };

@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
-import axios from 'axios'
+import React, { Fragment, useContext, useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { useNavigate, Link, useSearchParams, Navigate, useParams  } from 'react-router-dom'
+import axios from "axios"
 import Button from "../../components/Button";
 import Navbar from "../../components/Navbar";
 import CardProduct from "../../components/CardProduct";
 import styles from "./detail.module.css";
-import ProdPic from "../../assets/img/prodPic.svg";
 import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
+import { productContext } from "../../Context/ProductContext";
 import { v4 as uuidv4 } from 'uuid';
 
 const DetailProduct = () => {
@@ -16,6 +17,7 @@ const DetailProduct = () => {
   const [qty, setQty] = useState(1);
   const {id} = useParams()
   const [product, setProduct] = useState([])
+  const {products, setProducts} = useContext(productContext)
   const [itemToCart, setItemToCart] = useState([])
 
   useEffect(() => {
@@ -96,7 +98,7 @@ const DetailProduct = () => {
   };
 
   const handleDecrementQty = () => {
-    if (qty === 0) {
+    if (qty === 1) {
       setQty(1);
     } else {
       setQty(qty - 1);
@@ -111,34 +113,45 @@ const DetailProduct = () => {
     }
   };
 
-  console.log(itemToCart)
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_API_URL}products/details/${id}`)
+    .then((res)=>{
+      const result = res.data.data[0]
+      setProduct(result)
+  })
+  .catch((err)=>{
+      console.log(err.response);
+  })
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[])
+
   return (
     <Fragment>
       <Navbar />
       <main className={`container-fluid ${styles.con} bg-white`}>
         <div className="container h-100">
           <p className="text-secondary mt-5 mb-5">
-            Home {">"} category {">"} Shirt
+            Home {">"} Category {">"} {product.category_name}
           </p>
           <section className={`h-25 d-flex form-prod`}>
             <div className={`${styles.prodformleft} h-100 me-1`}>
-              <img src={product ? product.image1 : ProdPic} alt="" width={400}/>
+              <img src={product.image1} alt="" className={styles.prodPic}/>
               <div
                 className={`d-flex ${styles.prodPicLower} mt-1 justify-content-between`}
               >
-                <img className={`${styles.lowerPic}`} src={product ? product.image1 : ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={product ? product.image2 : ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={product ? product.image3 : ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={product ? product.image4 : ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={product ? product.image5 : ProdPic} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image1} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image2} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image3} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image4} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image5} alt="" />
               </div>
             </div>
             <div className={`${styles.prodformright} h-100 ms-5`}>
-              <h1 className="mb-3">{product ? product.name : `Product Name`}</h1>
-              <p className="text-secondary mb-3">{product ? product.store_name : `Store Name`}</p>
+              <h1 className="mb-3">{product.name}</h1>
+              <p className="text-secondary mb-3">{product.store_name}</p>
               <img src={ProdRating} alt="" />
               <p className="my-3 text-secondary">Price</p>
-              <h3 className="mb-3">$ {product ? product.price : `Price Loading...`}</h3>
+              <h3 className="mb-3">$ {product.price}.00</h3>
 
               <section className={`form-order d-flex my-5`}>
                 <div className={`button-1 me-5`}>
@@ -204,11 +217,11 @@ const DetailProduct = () => {
           <section className={`${styles.descriptionProd}`}>
             <h3 className="my-5">Product Information</h3>
             <h5>Condition</h5>
-            <h4 className="text-primary mb-5">NEW</h4>
+            <h4 className="text-primary mb-5">{product.product_condition}</h4>
 
             <h5 className="mt-5">Description</h5>
             <p className="text-secondary mb-5">
-              {product ? product.description : `Loading...`}
+              {product.description}
               <br />
               <br />
               Donec non magna rutrum, pellentesque augue eu, sagittis velit.
@@ -279,16 +292,12 @@ const DetailProduct = () => {
             <h3 className="mt-3">You can also like</h3>
             <p className="text-secondary my5">You've never seen it before!</p>
             <div className="card-container d-flex flex-wrap justify-content-around">
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
+            {
+              products.map((prods) => {
+                return <CardProduct key={prods.id} image={prods.image1} name={prods.name}
+                price={prods.price} store_name={prods.store_name} onClick={() => navigate(`/detail-product/${prods.id}`)} />
+              })
+            }
             </div>
           </section>
         </div>

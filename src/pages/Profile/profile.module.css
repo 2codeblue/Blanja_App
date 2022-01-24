@@ -1,0 +1,78 @@
+.con {
+  height: 100vh;
+}
+
+.profImg {
+  width: 111x;
+  height: 111px;
+  border-radius: 50%;
+}
+
+.profilebox {
+  width: 60vw;
+  height: 70vh;
+  border: 0.5px solid #9b9b9b;
+}
+
+.inputForm {
+  width: 20vw;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.inputForm1 {
+  width: 2rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.lowerButtons {
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border: solid 1px #d4d4d4;
+}
+
+.redButton {
+  width: 5vw;
+  color: white;
+}
+
+.lowerButtons1 {
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border: solid 1px rgb(194, 190, 190);
+}
+
+.redButton1 {
+  width: 8rem;
+  color: rgb(194, 190, 190);
+}
+
+.wrapper {
+  align-items: center;
+}
+
+.addres {
+  width: 710px;
+  height: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #9b9b9b;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+.detailAddres{
+    height: 170px;
+    width: 710px;
+    border: 1px solid #456BF3;
+}
+.tabs{
+  color: #9b9b9b;
+  font-weight: 500;
+}
+.tabs:hover{
+  color: #456BF3;
+}
