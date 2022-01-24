@@ -1,0 +1,9 @@
+.imguser{
+    height: 4em;
+}
+.sidebar{
+    height: 100vh;
+}
+.cpointer :hover{
+    cursor: pointer;
+}
