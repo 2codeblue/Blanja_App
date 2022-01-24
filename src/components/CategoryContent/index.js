@@ -4,16 +4,20 @@ import React, {useEffect, useState} from 'react';
 import CardProduct from '../CardProduct';
 
 const CategoryContent = () => {
-  // const [category, setCategory] = useState([])
-  // useEffect (() => {
-  //   axios.get('asdddddddd')
-  //   .then((res) => {
+  const [category, setCategory] = useState({
+    id : '',
+    name : ''
+  })
+  useEffect (() => {
+    axios.get(`${process.env.REACT_APP_API_URL}products/category`)
+    .then((res) => {
+      const result = res.data.data
+      console.log(result)
+    })
+    .catch((err) => {
 
-  //   })
-  //   .catch((err) => {
-
-  //   })
-  // },[])
+    })
+  },[])
   return (
       <div className="m-5">
           <div className="title-page m-5">
