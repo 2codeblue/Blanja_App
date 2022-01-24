@@ -10,6 +10,7 @@ const Order = () => {
           <Navbar/>
           <div className="d-flex w-100 flex-fill">
               <Sidebar/>
+              <div className={`w-75 bg-light profileBox pt-3`}>
               <div className={`${styles.profilebox} mt-5 ms-5 p-3 bg-white`}>
                   <h5>My Order</h5>
                   <div className="">
@@ -22,6 +23,7 @@ const Order = () => {
                           <li className='nav-item'> <Link to="#" className={`${styles.tabs} nav-link`}>Order cancel</Link></li>
                       </ul>
                   </div>
+              </div>
               </div>
           </div>
       </main>

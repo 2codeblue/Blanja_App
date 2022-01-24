@@ -11,6 +11,7 @@ const address = () => {
       <Navbar />
       <div className="d-flex w-100 flex-fill">
         <Sidebar />
+        <div className={`w-75 bg-light profileBox pt-3`}>
         <div className={`${styles.profilebox} mt-5 ms-5 p-3 bg-white`}>
           <h5>Choose another address</h5>
           <p>Manage your shipping address</p>
@@ -27,6 +28,7 @@ const address = () => {
             </p>
             <h5 className="text-primary">Change address</h5>
           </div>
+        </div>
         </div>
       </div>
     </main>
