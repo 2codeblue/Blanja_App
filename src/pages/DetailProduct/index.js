@@ -41,7 +41,7 @@ const DetailProduct = () => {
           qty: qty,
           color: null,
         },
-        url: `/add-item`,
+        url: `/bags/add-item`,
       })
         .then((res) => {
           const result = res.data.data[0];
@@ -66,7 +66,7 @@ const DetailProduct = () => {
           qty: qty,
           color: null,
         },
-        url: `/add-item`,
+        url: `/bags/add-item`,
       })
         .then((res) => {
           const result = res.data.data[0];
