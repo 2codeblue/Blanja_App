@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Navbar from '../../components/Navbar';
@@ -7,6 +7,15 @@ import ProfImg from '../../assets/img/prodPic.svg'
 import Sidebar from '../../components/Sidebar';
 
 const Profile = () => {
+    const [form, setForm] = useState({ name: "", email: "", phone_number: "" });
+    const [gender, setGender] = useState("");
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+        setGender(e.target.value);
+      };
+      console.log(gender);
+
   return (
     <main className={`containder-fluid bg-white ${styles.con} d-flex flex-column`}>
       <Navbar/>
@@ -30,6 +39,8 @@ const Profile = () => {
                                 </label>
                                 <Input
                                     name="name"
+                                    onChange= {handleChange}
+                                    value={form.name}
                                     className={`${styles.inputForm}`}
                                     type="text"
                                     id="Name"
@@ -42,6 +53,8 @@ const Profile = () => {
                                 </label>
                                 <Input
                                     name="email"
+                                    onChange= {handleChange}
+                                    value={form.email}
                                     className={`${styles.inputForm}`}
                                     type="email"
                                     id="email"
@@ -55,6 +68,8 @@ const Profile = () => {
                                 </label>
                                 <Input
                                     name="phone_number"
+                                    onChange= {handleChange}
+                                    value={form.phone_number}
                                     className={`${styles.inputForm}`}
                                     type="number"
                                     id="phone_number"
@@ -69,6 +84,7 @@ const Profile = () => {
                                 <div className='d-flex mt-2 ps-5'>
                                 <Input 
                                     className={`${styles.inputForm1} mt-1`}
+                                    onChange= {handleChange}
                                     name="gender"
                                     type="radio"
                                     value="male"
@@ -78,6 +94,7 @@ const Profile = () => {
                                 <div className='d-flex mt-2'>
                                 <Input
                                     className={`${styles.inputForm1} mt-1`}
+                                    onChange= {handleChange}
                                     name="gender"
                                     type="radio"
                                     value="female"
