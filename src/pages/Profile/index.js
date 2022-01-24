@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Navbar from '../../components/Navbar';
@@ -9,6 +10,25 @@ import Sidebar from '../../components/Sidebar';
 const Profile = () => {
     const [form, setForm] = useState({ name: "", email: "", phone_number: "" });
     const [gender, setGender] = useState("");
+    const [user, setUser]= useState(null)
+    const userFromLS = JSON.parse(localStorage.getItem("userId"))
+
+    useEffect(()=>{
+      // console.log(userFromLS);
+      axios({
+        baseURL : `${process.env.REACT_APP_API_URL}`,
+        method : 'GET',
+        url : `/users/customer/${userFromLS}`
+    })
+      .then((res) => {
+        const result = res.data.result;
+        console.log(result);
+        setUser(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },[])
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,12 +36,27 @@ const Profile = () => {
       };
       console.log(gender);
 
+    const handleCustomerPU = () =>{
+        axios.put(`${process.env.REACT_APP_API_URL}/users/customer/${userFromLS}`,{
+            name: form.name,
+            email: form.email,
+            phone_number: form.phone_number,
+            gender: gender
+        }).then((res)=>{
+            setUser({...user, 
+                name: form.name,
+                email: form.email,
+                phone_number: form.phone_number,
+                gender: gender})
+        })
+    }
+
   return (
     <main className={`containder-fluid bg-white ${styles.con} d-flex flex-column`}>
       <Navbar/>
       <div className="d-flex w-100 flex-fill">
           <Sidebar/>
-          {/* <div className={`w-25 sidebar`}>
+          {/*  <div className={`w-25 sidebar`}>
                   sidebar
           </div> */}
           <div className={`w-75 bg-light profileBox pt-3`}>
@@ -29,7 +64,7 @@ const Profile = () => {
                   <div className={`profilebox-wrapper h-100`}>
                     <h6 className="fw-bold">My Profile
                     <br />
-                    <span className="text-secondary fw-light mt-2">Manage your profile information</span></h6>
+                    <span className="text-secondary fw-light py-3">Manage your profile information</span></h6>
                     <hr className='mt-3'/>
                     <div className="d-flex profile-forms-wrapper">
                         <div className="w-75">
@@ -44,7 +79,7 @@ const Profile = () => {
                                     className={`${styles.inputForm}`}
                                     type="text"
                                     id="Name"
-                                    placeholder="Nanang Ismail"
+                                    placeholder={user? user.name : `Nanang Ismail`}
                                 />
                         </div>
                         <div className="w-100 d-flex justify-content-between mt-3 px-5">
@@ -58,7 +93,7 @@ const Profile = () => {
                                     className={`${styles.inputForm}`}
                                     type="email"
                                     id="email"
-                                    placeholder="nangis@gmail.com"
+                                    placeholder={user? user.email : `nangis@gmail.com`}
                                 />
                         </div>
 
@@ -73,7 +108,7 @@ const Profile = () => {
                                     className={`${styles.inputForm}`}
                                     type="number"
                                     id="phone_number"
-                                    placeholder="0812345678900"
+                                    placeholder={user? user.phone_number : `0812345678900`}
                                 />
                         </div>
 
@@ -111,11 +146,14 @@ const Profile = () => {
                                 className={`${styles.inputForm}`}
                                 type="text"
                                 id="DOB"
-                                placeholder="31 September 1988"
+                                placeholder={user? user.DOB.toLocaleDateString() : `31/09/1988`}
+                                disabled
                             />
                 </div>
                         <Button 
-                            className={`${styles.lowerButtons} ${styles.redButton} bg-primary ms-5 mt-3`}>
+                            className={`${styles.lowerButtons} ${styles.redButton} bg-primary ms-5 mt-3`}
+                            onClick={handleCustomerPU}
+                            >
                             Save
                             </Button>
 
@@ -125,7 +163,8 @@ const Profile = () => {
                             <div className={`${styles.wrapper} w-100 d-flex flex-column justify-content-center`}>
                                 <img src={ProfImg} className={`${styles.profImg}`} alt="" />
                                 <Button
-                                    className={`${styles.lowerButtons1} ${styles.redButton1} bg-transparent mt-3`}>
+                                    className={`${styles.lowerButtons1} ${styles.redButton1} bg-transparent mt-3`}
+                                    >
                                     Select Image
                                     </Button>
                             </div>
