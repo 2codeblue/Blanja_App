@@ -55,7 +55,12 @@ const HomePage = () => {
             Find clothes that are trending recently
           </p>
           <div className="card-container d-flex flex-wrap justify-content-around">
-            <CardProduct />
+          {
+              products.map((product) => {
+                return <CardProduct key={product.id} image={product.image1} name={product.name}
+                price={product.price} store_name={product.store_name} onClick={() => navigate(`/detail-product/${product.id}`)} />
+              })
+            }
           </div>
         </section>
       </MainHome>

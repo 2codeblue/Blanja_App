@@ -50,7 +50,7 @@ const Navbar = () => {
                     {/* <div className="brand-logo"><img src={Logo} alt="" /></div> */}
                     <div className="title"><h3>Blanja</h3></div>
                 </div>
-                <div className="mid w-50"><Input placeholder='Search' className={`${styles.src} w-75 px-3`} /></div>
+                <div className="mid w-50"><Input placeholder='Search' className={`${styles.src} w-75 px-3 py-2`} /></div>
                 {/* {auth ? (
                     <div className="right d-flex w-25 justify-content-end pe-3">
                         <div className="cart-icon fs-4 me-5 text-secondary"><FiShoppingCart /></div>
