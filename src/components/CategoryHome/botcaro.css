@@ -1,0 +1,20 @@
+.bot-carousel-image{
+    width: 216px !important;
+    height: 220px;
+    border-radius: 8px;
+}
+.bot-carousel-image-1{
+    background-color: blue;
+}
+.bot-carousel-image-2{
+    background-color: grey;
+}
+.bot-carousel-image-3{
+    background-color: green;
+}
+.bot-carousel-image-4{
+    background-color: red;
+}
+.bot-carousel-image-5{
+    background-color: lightcoral;
+}

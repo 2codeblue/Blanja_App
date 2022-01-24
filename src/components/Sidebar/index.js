@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState} from 'react';
-import axios from 'axios';
 import {BsPencil, BsPerson} from 'react-icons/bs';
 import {GoLocation} from 'react-icons/go';
 import {FiLogOut} from 'react-icons/fi';
 import {BiTask} from 'react-icons/bi';
 import styles from './sidebar.module.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 

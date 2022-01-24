@@ -11,12 +11,12 @@ import DetailProduct from './pages/DetailProduct';
 import HomePage from './pages/Home';
 import MyBag from './pages/MyBag';
 import ShippAddres from './pages/Profile/ShippAddress'
-
 import RequireAuth from './components/RequireAuth/RequireAuth';
-
 import Profile from './pages/Profile';
 import Order from './pages/Profile/Order';
 import ConfirmLog from './pages/Auth/ConfirmLog';
+import CategoryPage from './pages/CategoryPage';
+import PublicRoute from './components/PublicRoute';
 
 
 function App() {
@@ -24,23 +24,24 @@ function App() {
     <UserContext>
     <BrowserRouter>
       <Routes>
+        {/* No Need Login */}
+        <Route path="/" element={<HomePage/>}/> 
+        <Route path="/category" element={<CategoryPage/>}/>
+        <Route path="/detail-product/:id" element={<DetailProduct/>}/>
 
-        <Route path="/detail-product/:id" element={<RequireAuth><DetailProduct/></RequireAuth>}/>
+        {/* Must Login */}
         <Route path="/my-bag" element={<RequireAuth><MyBag/></RequireAuth>}/>
         <Route path="/checkout" element={<RequireAuth><Checkout/></RequireAuth>}/>
-        <Route path="/" element={<RequireAuth><HomePage/></RequireAuth>}/>
-
-
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={<RequireAuth><Profile/></RequireAuth>}/>
         <Route path="/Shipping-Addres" element={<RequireAuth> <ShippAddres/> </RequireAuth>}/>
         <Route path="/My-Order" element={<RequireAuth><Order/></RequireAuth>}/>
 
-
-        <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/reset-password" element={<ResetPass/>}/>
-        <Route path="/confirmation-password" element={<ConfirmPass/>}/>
-        <Route path="/confirmation-password-login" element={<ConfirmLog/>}/>
+        {/* Public Route, Must Logout */}
+        <Route path="/signup" element={<PublicRoute><SignUp/></PublicRoute>}/>
+        <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
+        <Route path="/reset-password" element={<PublicRoute><ResetPass/></PublicRoute>}/>
+        <Route path="/confirmation-password" element={<PublicRoute><ConfirmPass/></PublicRoute>}/>
+        <Route path="/confirmation-password-login" element={<PublicRoute><ConfirmLog/></PublicRoute>}/>
       </Routes>
     </BrowserRouter>
     </UserContext>
