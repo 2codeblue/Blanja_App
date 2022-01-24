@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   const handleSubmitClick = () => {
-    if (submitCustomer) {
+    if (submitCustomer === true) {
         setSubmitCustomer(true)
         axios({
             baseURL : `${process.env.REACT_APP_API_URL}`,

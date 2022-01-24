@@ -16,6 +16,7 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 
 import Profile from './pages/Profile';
 import Order from './pages/Profile/Order';
+import ConfirmLog from './pages/Auth/ConfirmLog';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/reset-password" element={<ResetPass/>}/>
         <Route path="/confirmation-password" element={<ConfirmPass/>}/>
+        <Route path="/confirmation-password-login" element={<ConfirmLog/>}/>
       </Routes>
     </BrowserRouter>
     </UserContext>
