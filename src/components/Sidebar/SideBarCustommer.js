@@ -1,18 +1,18 @@
 import { NavLink,Link } from 'react-router-dom';
 import profile from '../../assets/img/1.png';
-import iconUser from '../../assets/img/user.png'
+import iconUser from '../../assets/img/user.png';
 import iconMap from '../../assets/img/map.svg';
 import iconClipboard from '../../assets/img/clipboard.svg';
-
+import { useSelector } from 'react-redux';
 
 const SidebarCustommer = (props) => {
-  const user = JSON.parse(localStorage.getItem('seller')) 
+  const { user } = useSelector((state) => state.user);
   return (
     <div className="d-flex wrapper flex-nowrap">
       <aside className={`sidebar ps-5 flex-column ${props.sidebarActive ? 'sidebar-active' : ''}`}>
         <div className="user-profile d-flex flex-wrap mb-5">
           <img
-            src='../../assets/img/1.png'
+            src={user?.avatar ? `${process.env.REACT_APP_API_URL}/${user.avatar}` : profile}
             className="user-profile-img"
             alt="user-profile-img"
           />
