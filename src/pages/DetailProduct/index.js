@@ -32,7 +32,7 @@ const DetailProduct = () => {
     );
     if (customer_bags_id) {
       axios({
-        baseURL: `http://localhost:4000/bags/`,
+        baseURL: `${process.env.API_URL}`,
         method: "POST",
         data: {
           product_id: product.id,
@@ -57,7 +57,7 @@ const DetailProduct = () => {
         JSON.stringify(customer_bags_id)
       );
       axios({
-        baseURL: `http://localhost:4000/bags/`,
+        baseURL: `${process.env.API_URL}`,
         method: "POST",
         data: {
           product_id: product.id,
