@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "../../components/Button/button.css";
 // import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -60,8 +61,8 @@ const SignUp = () => {
     <Main>
       <h5 className="fw-bold my-4">Please sign up with Your Account</h5>
       <div className="my-2">
-        <Button onClick={changeFormButton}>Customer</Button>
-        <Button onClick={changeFormButton}>Seller</Button>
+        <Button className="btn-tabs" onClick={changeFormButton}>Customer</Button>
+        <Button className="btn-tabs" onClick={changeFormButton}>Seller</Button>
       </div>
       {
         customer ? (
@@ -132,7 +133,7 @@ const SignUp = () => {
       }
 
       <Button className="btn-input" onClick={handleSubmitClick}>Primary</Button>
-      <h6>Already have a Tokopedia account? Login</h6>
+      <h6 className="mt-3">Already have a Tokopedia account? <Link to="/login" className="text-decoration-none"> Login</Link> </h6>
     </Main>
   );
 };
