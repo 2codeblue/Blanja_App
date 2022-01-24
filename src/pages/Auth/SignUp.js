@@ -17,7 +17,6 @@ const SignUp = () => {
   });
 
   const [customer, setCustomer] = useState(true)
-  const [submitCustomer, setSubmitCustomer] = useState(true)
   const navigate = useNavigate()
 
 
@@ -35,10 +34,9 @@ const SignUp = () => {
 
   const handleSubmitClick = (e) => {
     e.preventDefault()
-    if (submitCustomer) {
-      setSubmitCustomer(true)
+    if (customer) {
       axios({
-        baseURL : `${process.env.REACT_APP_API_URL}`,
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
         data : {
           name : form.name,
           email : form.email,
@@ -55,10 +53,10 @@ const SignUp = () => {
       .catch((err)=>{
         console.log(err);
       })
+      console.log(`form customer`);
     }else {
-      setSubmitCustomer(false)
       axios({
-        baseURL : `${process.env.REACT_APP_API_URL}`,
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
         data : {
           name : form.name,
           email : form.email,
@@ -77,6 +75,7 @@ const SignUp = () => {
       .catch((err)=>{
         console.log(err);
       })
+      console.log(`form seller`);
     }
   }
 

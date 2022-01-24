@@ -12,8 +12,9 @@ const Login = () => {
     password: "",
   });
 
-  const [customer, setCustomer] = useState(true)
-  const [submitCustomer, setSubmitCustomer] = useState(true)
+  const [clickedButton, setClickedButton] = useState("");
+  const [customer, setCustomer] = useState(true);
+  const [userStatus, setUserStatus] = useState("Customer");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,73 +24,85 @@ const Login = () => {
     });
   };
 
-  const handleSubmitClick = () => {
-    if (submitCustomer === true) {
-        setSubmitCustomer(true)
-        axios({
-            baseURL : `${process.env.REACT_APP_API_URL}`,
-            data : {
-                email : form.email,
-                password : form.password
-            },
-            method : 'POST',
-            url : `users/customer/login`
-        })
-        .then((res)=>{
-            const result = res.data
-            const customerId =  result.data[0].id
-            console.log(result.data);
-            localStorage.setItem('auth', "1")
-            localStorage.setItem('userId', JSON.stringify(customerId))
-            navigate('/')
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+  const checkButtonNameClick = (e) => {
+    if (e.target.innerText === "Customer") {
+      setCustomer(true);
+      setClickedButton('active')
+      console.log(`Form Customer`);
+      
     } else {
-        setSubmitCustomer(false)
-        axios({
-            baseURL : `${process.env.REACT_APP_API_URL}`,
-            data : {
-                email : form.email,
-                password : form.password
-            },
-            method : 'POST',
-            url : 'users/seller/login'
-        })
-        .then((res)=>{
-            const result = res.data
-            const customerId =  result.data[0].id
-            console.log(result.data);
-            localStorage.setItem('auth', "1")
-            localStorage.setItem('userId', JSON.stringify(customerId))
-            navigate('/')
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+      setCustomer(false);
+      console.log(`Form Seller`);
+      //set url untuk axios nya ke endpoint nya seller
     }
   };
 
-  const checkButtonNameClick = (e) => {
-    if (e.target.innerText === 'Customer') {
-        setCustomer(true)
-      console.log(`Form Customer`)
-      //set url untuk axios nya ke endpoint nya customer
-    } else {
-        setCustomer(false)
-      console.log(`Form Seller`)
-      //set url untuk axios nya ke endpoint nya seller
+  const handleSubmitClick = () => {
+    if (customer) {
+      axios({
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+        data: {
+          email: form.email,
+          password: form.password,
+        },
+        method: "POST",
+        url: `users/customer/login`,
+      })
+        .then((res) => {
+          const result = res.data;
+          const customerId = result.data[0].id;
+          console.log(result.data);
+          localStorage.setItem("auth", "1");
+          localStorage.setItem("userId", JSON.stringify(customerId));
+          localStorage.setItem("userStatus", JSON.stringify(userStatus));
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (!customer) {
+      setUserStatus("Seller");
+      axios({
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+        data: {
+          email: form.email,
+          password: form.password,
+        },
+        method: "POST",
+        url: "users/seller/login",
+      })
+        .then((res) => {
+          const result = res.data;
+          const sellerId = result.data[0].id;
+          console.log(result.data);
+          localStorage.setItem("auth", "1");
+          localStorage.setItem("userId", JSON.stringify(sellerId));
+          localStorage.setItem("userStatus", JSON.stringify(userStatus));
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
+  };
 
   return (
     <div>
       <Main>
         <h5 className="fw-bold my-4">Please Login Your Account</h5>
         <div className="my-3">
-          <Button className="btn-tabs rounded-start" onClick={checkButtonNameClick}>Customer</Button>
-          <Button className="btn-tabs rounded-end" onClick={checkButtonNameClick}>Seller</Button>
+          <Button style={{backgroundColor : clickedButton}}
+            className="btn-tabs rounded-start"
+            onClick={checkButtonNameClick}
+          >
+            Customer
+          </Button>
+          <Button
+            className="btn-tabs rounded-end"
+            onClick={checkButtonNameClick}
+          >
+            Seller
+          </Button>
         </div>
         <Input
           placeholder="Email"
@@ -106,12 +119,20 @@ const Login = () => {
           onChange={handleChange}
         />
         <div className="w-50 pe-5 me-5 mt-3 text-end">
-            <Link to="/reset-password" className="text-decoration-none"><p>Forgot Password ? </p></Link>
+          <Link to="/reset-password" className="text-decoration-none">
+            <p>Forgot Password ? </p>
+          </Link>
         </div>
         <Button className="btn-input" onClick={handleSubmitClick}>
           Primary
         </Button>
-        <h6 className="mt-3">Don't have a Tokopedia accout ? <Link to="/SignUp" className="text-decoration-none"> Register</Link> </h6>
+        <h6 className="mt-3">
+          Don't have a Tokopedia accout ?{" "}
+          <Link to="/SignUp" className="text-decoration-none">
+            {" "}
+            Register
+          </Link>{" "}
+        </h6>
       </Main>
     </div>
   );

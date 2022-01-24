@@ -27,3 +27,13 @@
   background-color: #273ac7;
   color: #ffffff;
 }
+
+.btn-tabs:active {
+  background-color: #273ac7;
+  color: #ffffff;
+}
+
+.btn-tabs:focus {
+  background-color: #273ac7;
+  color: #ffffff;
+}

@@ -32,7 +32,7 @@ const DetailProduct = () => {
     );
     if (customer_bags_id) {
       axios({
-        baseURL: `${process.env.API_URL}`,
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
         method: "POST",
         data: {
           product_id: product.id,
@@ -57,7 +57,7 @@ const DetailProduct = () => {
         JSON.stringify(customer_bags_id)
       );
       axios({
-        baseURL: `${process.env.API_URL}`,
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
         method: "POST",
         data: {
           product_id: product.id,
@@ -110,7 +110,7 @@ const DetailProduct = () => {
 
   useEffect(() => {
     axios({
-      baseURL: `https://blanja-app-2codeblue.herokuapp.com/`,
+      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
       method: "GET",
       url: `products/details/${id}`,
     })

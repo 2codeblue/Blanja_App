@@ -16,7 +16,7 @@ const MyBag = () => {
 
   useEffect(() => {
     axios({
-      baseURL: `${process.env.API_URL}`,
+      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
       method: "GET",
       url: `bags/${customer_bags_id}`,
     })
