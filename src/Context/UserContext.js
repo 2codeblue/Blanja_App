@@ -14,8 +14,7 @@ const UserContext = ({children}) => {
             })
             .then((res) => {
                 const result = res.data.data[0]
-                // setUser(result)
-                console.log(result);
+                setUser(result)
             })
             .catch((err) => {
                 console.log(err.response)
