@@ -10,6 +10,7 @@ import Checkout from './pages/Checkout';
 import DetailProduct from './pages/DetailProduct';
 import HomePage from './pages/Home';
 import MyBag from './pages/MyBag';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/reset-password" element={<ResetPass/>}/>
         <Route path="/confirmation-password" element={<ConfirmPass/>}/>
+        <Route path="/sidebar" element={<Sidebar/>}/>
       </Routes>
     </BrowserRouter>
     );
