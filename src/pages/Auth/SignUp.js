@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../components/Button/button.css";
 // import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Main from "../../components/Main";
+import axios from "axios";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -16,8 +17,9 @@ const SignUp = () => {
   });
 
   const [customer, setCustomer] = useState(true)
+  const [submitCustomer, setSubmitCustomer] = useState(true)
+  const navigate = useNavigate()
 
-  // const navigate = useNavigate()
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -31,8 +33,51 @@ const SignUp = () => {
   //   navigate
   // }
 
-  const handleSubmitClick = () => {
-    console.log(form)
+  const handleSubmitClick = (e) => {
+    e.preventDefault()
+    if (submitCustomer) {
+      setSubmitCustomer(true)
+      axios({
+        baseURL : `${process.env.REACT_APP_API_URL}`,
+        data : {
+          name : form.name,
+          email : form.email,
+          password : form.password
+        },
+        method : 'POST',
+        url : `/users/customer/signup`
+      })
+      .then((res)=>{
+        const result = res.data
+        console.log(result);
+        navigate('/login')
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }else {
+      setSubmitCustomer(false)
+      axios({
+        baseURL : `${process.env.REACT_APP_API_URL}`,
+        data : {
+          name : form.name,
+          email : form.email,
+          phone : form.phone,
+          store : form.store,
+          password : form.password
+        },
+        method : 'POST',
+        url : `/users/seller/signup`
+      })
+      .then((res)=>{
+        const result = res.data
+        console.log(result);
+        navigate('/login')
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
   }
 
   const changeFormButton = (e) => {
@@ -61,8 +106,8 @@ const SignUp = () => {
     <Main>
       <h5 className="fw-bold my-4">Please sign up with Your Account</h5>
       <div className="my-2">
-        <Button className="btn-tabs" onClick={changeFormButton}>Customer</Button>
-        <Button className="btn-tabs" onClick={changeFormButton}>Seller</Button>
+        <Button className="btn-tabs rounded-start" onClick={changeFormButton}>Customer</Button>
+        <Button className="btn-tabs rounded-end" onClick={changeFormButton}>Seller</Button>
       </div>
       {
         customer ? (
