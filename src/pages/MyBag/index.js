@@ -10,8 +10,10 @@ import Button from "../../components/Button";
 const MyBag = () => {
   const navigate = useNavigate();
   const [array, setArray] = useState([]);
-  const customer_bags_id = JSON.parse(localStorage.getItem("customer_bags_id"))
-  const [total, setTotal] = useState(0);
+  const customer_bags_id = JSON.parse(localStorage.getItem("customer_bags_id"));
+  const user_id = JSON.parse(localStorage.getItem("userId"));
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
@@ -22,6 +24,14 @@ const MyBag = () => {
     })
       .then((res) => {
         const result = res.data.data;
+        let price = 0;
+        let qty = 0;
+        result.forEach((item) => {
+          price = price + item.price * item.quantity;
+          qty = qty + item.quantity;
+        });
+        setTotalPrice(price);
+        setTotalQuantity(qty);
         setCart(result);
       })
       .catch((err) => {
@@ -31,72 +41,53 @@ const MyBag = () => {
 
   //
 
-  const [checkedState, setCheckedState] = useState(
-    new Array(cart.length).fill(false)
-  );
-
-  const handleCheckedAll = () => {
-    setCheckedState(new Array(cart.length).fill(true));
-    const totalPrice = checkedState.reduce((sum, currentState, index) => {
-      if (currentState === true) {
-        return sum + cart[index].price * cart[index].qty;
-      }
-      return sum;
-    }, 0);
-    setTotal(totalPrice);
-  };
-
-  const handleOnChange = (id) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index + 1 === id ? !item : item
-    );
-
-    setCheckedState(updatedCheckedState);
-
-    const totalPrice = updatedCheckedState.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum + cart[index].price * cart[index].qty;
-        }
-        return sum;
-      },
-      0
-    );
-    setTotal(totalPrice);
-  };
-
-  const handleCheckedValue = (e) => {
-    if (e.target.checked) {
-      let id = e.target.value;
-      setArray([...array, id]);
-    }
-  };
-
   const handleIncrementQty = (id) => {
     const index = cart.findIndex((item) => item.id === id);
     let cartItem = cart[index];
-    cartItem.qty++;
+    cartItem.quantity++;
     updatecartItem(); //originally supposed to be cart update
-    handleOnChange();
   };
 
   const handleDecrementQty = (id) => {
     const index = cart.findIndex((item) => item.id === id);
     let cartItem = cart[index];
-    if (cartItem.qty <= 0) {
-      cartItem.qty = 0;
+    if (cartItem.quantity <= 0) {
+      cartItem.quantity = 0;
     } else {
-      cartItem.qty--;
+      cartItem.quantity--;
     }
     updatecartItem(); //originally supposed to be cart update
-    handleOnChange();
   };
 
   const updatecartItem = () => {
     setCart(cart);
   };
 
+  const handleOnClickToCheckout = () => {
+    axios({
+      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+      data : {
+        customer_bags_id : customer_bags_id, 
+        total_price : totalPrice, 
+        total_quantity :totalQuantity, 
+        customer_id : user_id
+      },
+      method : 'POST',
+      url : `/orders/add-order`
+    })
+    .then((res) => {
+      const result = res.data.data;
+      console.log(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    navigate(`/checkout`)
+  }
+
   console.log(cart);
+  console.log(totalPrice);
+  console.log(totalQuantity);
   return (
     <Fragment>
       <main className={`containder-fluid bg-white ${styles.con}`}>
@@ -113,7 +104,6 @@ const MyBag = () => {
                       name="AllItems"
                       value="AllItems"
                       className={`me-3 ${styles.checkbox}`}
-                      onChange={handleCheckedAll}
                     />
                     <h5 className="mt-2">
                       Select all items{" "}
@@ -126,7 +116,10 @@ const MyBag = () => {
               {/* cart items here using dummy data from cart array*/}
               {cart.map((cartItem) => {
                 return (
-                  <div className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`} key={cartItem.id}>
+                  <div
+                    className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}
+                    key={cartItem.id}
+                  >
                     <div className="wrapper d-flex w-100 justify-content-between">
                       <div className={`d-flex ${styles.width1}`}>
                         <Input
@@ -134,10 +127,6 @@ const MyBag = () => {
                           name={cartItem.name}
                           value={cartItem.id}
                           className={`me-3 ${styles.checkboxLower}`}
-                          onChange={(e) => {
-                            handleCheckedValue(e);
-                            handleOnChange(cartItem.id);
-                          }}
                           defaultChecked={false}
                         />
                         <img
@@ -180,41 +169,17 @@ const MyBag = () => {
                 <h6 className="fw-bold mt-3">Shopping Summary</h6>
                 <div className="d-flex justify-content-between">
                   <h6 className="text-secondary">Total Price</h6>
-                  <h6>$ {total}</h6>
+                  <h6>$ {totalPrice ? totalPrice : `Loading`}</h6>
                 </div>
                 <Button
                   className={`${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`}
-                  onClick={() => navigate("/checkout")}
+                  onClick={handleOnClickToCheckout}
                 >
                   Buy
                 </Button>
               </div>
             </div>
           </section>
-          {/* <div className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
-      <div className="wrapper d-flex w-100 justify-content-between">
-        <div className="d-flex">
-            <Input type="checkbox" name="AllItems" value="AllItems" className={`me-3 ${styles.checkboxLower}`}/>
-            <img src={ProdImg} className={`${styles.prodImg} me-3`} alt="" />  
-            <h6 className='mt-3'>Mens Formal Suit - Black <br/>
-            <span className='text-secondary'>Zalora Cloth</span></h6>
-            </div>
-        <div className="d-flex buttons qty mt-3">
-        <Button
-                      className={`${styles.formButton} ${styles.buttonMin} me-2`}
-                    >
-                      -
-                    </Button>
-                    <div className={`${styles.formButton}`}>1</div>
-                    <Button
-                      className={`${styles.formButton} ${styles.buttonPlus}`}
-                    >
-                      +
-                    </Button>
-        </div>
-        <h6 className="price mt-3">$ 20.00</h6>
-          </div>
-      </div> */}
         </div>
       </main>
     </Fragment>

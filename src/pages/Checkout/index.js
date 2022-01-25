@@ -1,33 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import styles from '../MyBag/mybag.module.css'
 import ProdImg from '../../assets/img/mybagimg.svg'
 import Button from '../../components/Button';
 import COModal from '../../components/COModal';
+import axios from 'axios';
 
 
 const Checkout = () => {
     // eslint-disable-next-line no-unused-vars
-    const [cart, setCart] = useState([{
-        id: 1,
-        name: "sepatu bagus",
-        price: 35000,
-        seller: "Zalora Cloth",
-        qty: 1
-    },{
-        id: 2,
-        name: "sepatu jelek",
-        price: 5000,
-        seller: "Lazadut Cloth",
-        qty: 3
-    },
-    {
-        id: 2,
-        name: "sepatu biasa aja",
-        price: 20000,
-        seller: "Shopee Cloth",
-        qty: 3
-    }])
+    const [cart, setCart] = useState([])
+    const [order, setOrder] = useState([])
+    const customer_bags_id = JSON.parse(localStorage.getItem("customer_bags_id"));
+    const user_id = JSON.parse(localStorage.getItem("userId"));
+    const [totalPrice, setTotalPrice] = useState(0);
+    useEffect(() => {
+        axios({
+            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+            method: "GET",
+            url: `/bags/${customer_bags_id}`,
+        })
+        .then((res) => {
+            const result = res.data.data;
+            let price = 0;
+            result.forEach((item) => {
+                price = price + item.price * item.quantity;
+            });
+            setTotalPrice(price);
+            setCart(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+        axios({
+            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+            method: "GET",
+            url: `/orders/${user_id}`,
+        })
+        .then((res) => {
+            const result = res.data.data;
+            setOrder(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+    }, [])
 
     const [displayModal, setDisplayModal] = useState(false)
 
@@ -57,11 +76,11 @@ const Checkout = () => {
               <div className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
               <div className="wrapper d-flex w-100 justify-content-between">
                   <div className={`d-flex ${styles.width1}`}>
-                  <img src={ProdImg} className={`${styles.prodImg} me-3`} alt="" />  
+                  <img src={cartItem.image1} className={`${styles.prodImg} me-3`} alt="" />  
                     <h6 className='mt-3'>{cartItem.name} <br/>
                     <span className='text-secondary'>{cartItem.seller}</span></h6>
                   </div>
-                    <div className={`${styles.formButtons} mt-3 fw-bold`}>x {cartItem.qty}</div>
+                    <div className={`${styles.formButtons} mt-3 fw-bold`}>x {cartItem.quantity}</div>
                     <h6 className="price mt-3">$ {cartItem.price}</h6>
                   </div>
               </div>
@@ -73,13 +92,17 @@ const Checkout = () => {
             <h6 className='fw-bold mt-3'>Shopping Summary</h6>
             <div className="d-flex justify-content-between">
                 <h6 className='text-secondary'>Total Price</h6>
-                <h6>$ dummy price amount</h6>
+                <h6>$ {totalPrice}</h6>
             </div>
             <div className="d-flex justify-content-between">
                 <h6 className='text-secondary'>Shipping Fee</h6>
-                <h6>$ 100</h6>
+                <h6>Free</h6>
             </div>
-
+            <hr></hr>
+            <div className="d-flex justify-content-between">
+                <h6 className='text-secondary'>Shipping Summary</h6>
+                <h6>$ {totalPrice}</h6>
+            </div>
             <Button
             className={`${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`}
             onClick={handleModal}

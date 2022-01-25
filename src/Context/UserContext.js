@@ -8,7 +8,7 @@ const UserContext = ({children}) => {
         const userId = JSON.parse(localStorage.getItem('userId'))
         if (userId) {
             axios({
-                baseURL : `${process.env.REACT_APP_API_URL}`,
+                baseURL : `${process.env.REACT_APP_URL_BACKEND}`,
                 method : 'GET',
                 url : `/users/customer/${userId}`
             })
@@ -21,7 +21,6 @@ const UserContext = ({children}) => {
             })
         }
     },[])
-    console.log(user);
   return (
     <userContext.Provider value={{user, setUser}}>
         {children}

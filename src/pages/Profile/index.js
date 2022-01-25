@@ -16,7 +16,7 @@ const Profile = () => {
     useEffect(()=>{
       // console.log(userFromLS);
       axios({
-        baseURL : `${process.env.REACT_APP_API_URL}`,
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
         method : 'GET',
         url : `/users/customer/${userFromLS}`
     })
@@ -37,7 +37,7 @@ const Profile = () => {
       console.log(gender);
 
     const handleCustomerPU = () =>{
-        axios.put(`${process.env.REACT_APP_API_URL}/users/customer/${userFromLS}`,{
+        axios.put(`${process.env.REACT_APP_URL_BACKEND}/users/customer/${userFromLS}`,{
             name: form.name,
             email: form.email,
             phone_number: form.phone_number,
