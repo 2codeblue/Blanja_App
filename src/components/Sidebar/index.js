@@ -5,7 +5,7 @@ import {GoLocation} from 'react-icons/go';
 import {FiLogOut} from 'react-icons/fi';
 import {BiTask} from 'react-icons/bi';
 import styles from './sidebar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -14,6 +14,7 @@ import axios from 'axios';
 const Sidebar = () => {
 
     const [user, setUser]= useState()
+    const navigate = useNavigate()
 
     useEffect(()=>{
       const userFromLS = JSON.parse(localStorage.getItem("userId"))
@@ -32,6 +33,12 @@ const Sidebar = () => {
         console.log(err);
       });
     },[])
+
+    const handleLogout = () => {
+      localStorage.removeItem('auth')
+      localStorage.removeItem('userId')
+      navigate('/')
+    }
 
   return (
     <div className="sidebar w-25 p-5">
@@ -57,7 +64,7 @@ const Sidebar = () => {
             </div>
             <div className={`${styles.cpointer} logout d-flex align-items-center mt-4`}>
                 <div className="icon px-2 bg-danger fs-4 rounded-circle"><FiLogOut/></div>
-                <div className="infosetting ps-3">Logout</div>
+                <div onClick={handleLogout} className="infosetting ps-3">Logout</div>
             </div>
         </div>
     </div>
