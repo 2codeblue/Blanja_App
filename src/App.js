@@ -10,10 +10,12 @@ import Checkout from './pages/Checkout';
 import DetailProduct from './pages/DetailProduct';
 import HomePage from './pages/Home';
 import MyBag from './pages/MyBag';
+import ShippAddres from './pages/Profile/ShippAddress'
 
 import RequireAuth from './components/RequireAuth/RequireAuth';
 
 import Profile from './pages/Profile';
+import Order from './pages/Profile/Order';
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
 
 
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/Shipping-Addres" element={<RequireAuth> <ShippAddres/> </RequireAuth>}/>
+        <Route path="/My-Order" element={<RequireAuth><Order/></RequireAuth>}/>
 
 
         <Route path="/signup" element={<SignUp/>}/>

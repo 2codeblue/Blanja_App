@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Navbar from '../../components/Navbar';
@@ -9,6 +10,26 @@ import Sidebar from '../../components/Sidebar';
 const Profile = () => {
     const [form, setForm] = useState({ name: "", email: "", phone_number: "" });
     const [gender, setGender] = useState("");
+
+    const [user, setUser]= useState(null)
+
+    useEffect(()=>{
+      const userFromLS = JSON.parse(localStorage.getItem("userId"))
+      // console.log(userFromLS);
+      axios({
+        baseURL : `${process.env.REACT_APP_API_URL}`,
+        method : 'GET',
+        url : `/users/customer/${userFromLS}`
+    })
+      .then((res) => {
+        const result = res.data.result;
+        console.log(result);
+        setUser(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },[])
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,7 +50,7 @@ const Profile = () => {
                   <div className={`profilebox-wrapper h-100`}>
                     <h6 className="fw-bold">My Profile
                     <br />
-                    <span className="text-secondary fw-light mt-2">Manage your profile information</span></h6>
+                    <span className="text-secondary fw-light py-3">Manage your profile information</span></h6>
                     <hr className='mt-3'/>
                     <div className="d-flex profile-forms-wrapper">
                         <div className="w-75">
