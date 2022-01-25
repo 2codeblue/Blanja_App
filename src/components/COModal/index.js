@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '../Input';
 import './modal.css'
 
 const COModal = ({handleModal}) => {
+
+    const [payment, setPayment] = useState(0)
 
     // methods pake use state get data dari backend
     const methods = [{
@@ -19,10 +21,10 @@ const COModal = ({handleModal}) => {
         logo: "https://logosmarcas.net/wp-content/uploads/2020/09/MasterCard-Logo-1979-1990.png"
     }]
 
-    const handleCheckedValue = (e) =>{              //as value in paymentMethod field on API
-        let paymentMethodId = e.target.value
-        console.log(paymentMethodId);
+    const handleSetPayment = (e) =>{
+        setPayment(e.target.value)
     }
+    console.log(payment);
 
     return(
   <div>
@@ -42,12 +44,12 @@ const COModal = ({handleModal}) => {
         </div>
         <h6 className='text-dark'>{method.name}</h6>
         <Input 
-                      type="checkbox" 
-                      name={method.name} 
+                      type="radio" 
+                      onChange={handleSetPayment}
+                      name="method_payment" 
                       value={method.id} 
                       className="me-3 checkboxLower"
                       defaultChecked={false}
-                      onClick={handleCheckedValue}
                       />
     </div>
     )

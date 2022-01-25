@@ -1,17 +1,89 @@
-import React, { Fragment, useState } from "react";
-import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
+import React, { Fragment, useContext, useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { useNavigate, Link, useSearchParams, Navigate, useParams  } from 'react-router-dom'
+import axios from "axios"
 import Button from "../../components/Button";
 import Navbar from "../../components/Navbar";
 import CardProduct from "../../components/CardProduct";
 import styles from "./detail.module.css";
-import ProdPic from "../../assets/img/prodPic.svg";
 import ProdRating from "../../assets/img/ProdRating.svg";
 import Star from "../../assets/img/Star.svg";
+import { productContext } from "../../Context/ProductContext";
+import { v4 as uuidv4 } from 'uuid';
 
 const DetailProduct = () => {
   const navigate = useNavigate();
   const [size, setSize] = useState(36);
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
+  const {id} = useParams()
+  const [product, setProduct] = useState([])
+  const {products, setProducts} = useContext(productContext)
+  const [itemToCart, setItemToCart] = useState([])
+
+  useEffect(() => {
+    axios({
+      baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
+      method : 'GET',
+      url : `products/details/${id}`
+    })
+    .then((res) => {
+      const result = res.data.data[0]
+      setProduct(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+
+  const handleAddItemToBag = () => {
+    const customer_bags_id = JSON.parse(localStorage.getItem('customer_bags_id'))
+    if (customer_bags_id) {
+      axios({
+        baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
+        method : 'POST',
+        data : {
+          product_id : product.id,
+          customer_bags_id : customer_bags_id,
+          size : size,
+          qty : qty,
+          color : null
+        },
+        url : `/add-item`
+      })
+      .then((res) => {
+        const result = res.data.data[0]
+        setProduct(result)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    } else {
+      const customer_bags_id = uuidv4()
+      localStorage.setItem('customer_bags_id', JSON.stringify(customer_bags_id))
+      axios({
+        baseURL : `https://blanja-app-2codeblue.herokuapp.com`,
+        method : 'POST',
+        data : {
+          product_id : product.id,
+          customer_bags_id : customer_bags_id,
+          size : size,
+          qty : qty,
+          color : null
+        },
+        url : `/add-item`
+      })
+      .then((res) => {
+        const result = res.data.data[0]
+        setProduct(result)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+    }
+  }
+
+  // --------------
 
   const handleIncrementSz = () => {
     if (size < 46) {
@@ -26,8 +98,8 @@ const DetailProduct = () => {
   };
 
   const handleDecrementQty = () => {
-    if (qty <= 0) {
-      setQty(0);
+    if (qty === 1) {
+      setQty(1);
     } else {
       setQty(qty - 1);
     }
@@ -41,33 +113,45 @@ const DetailProduct = () => {
     }
   };
 
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_API_URL}products/details/${id}`)
+    .then((res)=>{
+      const result = res.data.data[0]
+      setProduct(result)
+  })
+  .catch((err)=>{
+      console.log(err.response);
+  })
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[])
+
   return (
     <Fragment>
       <Navbar />
       <main className={`container-fluid ${styles.con} bg-white`}>
         <div className="container h-100">
           <p className="text-secondary mt-5 mb-5">
-            Home {">"} category {">"} Shirt
+            Home {">"} Category {">"} {product.category_name}
           </p>
           <section className={`h-25 d-flex form-prod`}>
             <div className={`${styles.prodformleft} h-100 me-1`}>
-              <img src={ProdPic} alt="" />
+              <img src={product.image1} alt="" className={styles.prodPic}/>
               <div
                 className={`d-flex ${styles.prodPicLower} mt-1 justify-content-between`}
               >
-                <img className={`${styles.lowerPic}`} src={ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={ProdPic} alt="" />
-                <img className={`${styles.lowerPic}`} src={ProdPic} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image1} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image2} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image3} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image4} alt="" />
+                <img className={`${styles.lowerPic}`} src={product.image5} alt="" />
               </div>
             </div>
             <div className={`${styles.prodformright} h-100 ms-5`}>
-              <h1 className="mb-3">Baju Muslim Pria</h1>
-              <p className="text-secondary mb-3">Zalora Cloth</p>
+              <h1 className="mb-3">{product.name}</h1>
+              <p className="text-secondary mb-3">{product.store_name}</p>
               <img src={ProdRating} alt="" />
               <p className="my-3 text-secondary">Price</p>
-              <h3 className="mb-3">$ 20.00</h3>
+              <h3 className="mb-3">$ {product.price}.00</h3>
 
               <section className={`form-order d-flex my-5`}>
                 <div className={`button-1 me-5`}>
@@ -116,13 +200,14 @@ const DetailProduct = () => {
                 </Button>
                 <Button
                   className={`${styles.lowerButtons} bg-white ${styles.whiteButton}`}
+                  onClick={handleAddItemToBag}
                 >
                   Add Bag
                 </Button>
                 <Button
                   className={`${styles.lowerButtons} bg-primary ${styles.redButton}`}
-                  onClick={()=>navigate("/checkout")}
-                  >
+                  onClick={() => navigate("/checkout")}
+                >
                   Buy Now
                 </Button>
               </div>
@@ -132,11 +217,11 @@ const DetailProduct = () => {
           <section className={`${styles.descriptionProd}`}>
             <h3 className="my-5">Product Information</h3>
             <h5>Condition</h5>
-            <h4 className="text-primary mb-5">NEW</h4>
+            <h4 className="text-primary mb-5">{product.product_condition}</h4>
 
             <h5 className="mt-5">Description</h5>
             <p className="text-secondary mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              {product.description}
               <br />
               <br />
               Donec non magna rutrum, pellentesque augue eu, sagittis velit.
@@ -202,21 +287,17 @@ const DetailProduct = () => {
               </div>
             </div>
           </section>
-            <hr className="mt-4"/>
+          <hr className="mt-4" />
           <section className="d-flex flex-column">
             <h3 className="mt-3">You can also like</h3>
             <p className="text-secondary my5">You've never seen it before!</p>
             <div className="card-container d-flex flex-wrap justify-content-around">
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
+            {
+              products.map((prods) => {
+                return <CardProduct key={prods.id} image={prods.image1} name={prods.name}
+                price={prods.price} store_name={prods.store_name} onClick={() => navigate(`/detail-product/${prods.id}`)} />
+              })
+            }
             </div>
           </section>
         </div>
