@@ -33,6 +33,14 @@ const Sidebar = () => {
       });
     },[])
 
+    const handleLogout = () => {
+      localStorage.removeItem('auth')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('customer_bags_id')
+      localStorage.removeItem('userStatus')
+      navigate('/')
+    }
+
   return (
     <div className="sidebar w-25 p-5">
         <div className="infouser d-flex align-items-center">
