@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState} from 'react';
-import axios from 'axios';
 import {BsPencil, BsPerson} from 'react-icons/bs';
 import {GoLocation} from 'react-icons/go';
 import {FiLogOut} from 'react-icons/fi';
 import {BiTask} from 'react-icons/bi';
 import styles from './sidebar.module.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -31,6 +32,14 @@ const Sidebar = () => {
         console.log(err);
       });
     },[])
+
+    const handleLogout = () => {
+      localStorage.removeItem('auth')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('customer_bags_id')
+      localStorage.removeItem('userStatus')
+      navigate('/')
+    }
 
   return (
     <div className="sidebar w-25 p-5">

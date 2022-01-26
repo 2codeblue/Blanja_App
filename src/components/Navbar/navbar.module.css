@@ -15,3 +15,16 @@
 .headerbody{
     box-shadow: 0px 6px 40px rgba(173, 173, 173, 0.25);
 }
+.iconuserimg{
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+}
+
+.left{
+    cursor: pointer;
+}
+.carticon :hover{
+    cursor: pointer;
+}

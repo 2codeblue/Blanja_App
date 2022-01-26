@@ -3,9 +3,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, Link, useSearchParams, Navigate  } from 'react-router-dom'
 import axios from 'axios'
 import CardProduct from "../../components/CardProduct";
-import HomeCarousel from "../../components/HomeCarousel";
 import MainHome from "../../components/MainHome";
 import Navbar from "../../components/Navbar";
+import TopCarousel from '../../components/TopCarousel';
+import CategoryHome from '../../components/CategoryHome';
+
 import { productContext } from '../../Context/ProductContext';
 
 const HomePage = () => {
@@ -19,10 +21,13 @@ const HomePage = () => {
       <Navbar />
       <MainHome>
         <section>
-          <HomeCarousel />
+          <TopCarousel />
         </section>
         <section>
-          <h2>New</h2>
+          <CategoryHome/>
+        </section>
+        <section>
+          <h2 className='mt-5'>New</h2>
           <p className="text-black-50">You’ve never seen it before!</p>
           <div className="card-container d-flex flex-wrap flex-fill justify-content-center">
             {
@@ -43,7 +48,12 @@ const HomePage = () => {
             Find clothes that are trending recently
           </p>
           <div className="card-container d-flex flex-wrap justify-content-around">
-            <CardProduct />
+          {
+              products.map((product) => {
+                return <CardProduct key={product.id} image={product.image1} name={product.name}
+                price={product.price} store_name={product.store_name} onClick={() => navigate(`/detail-product/${product.id}`)} />
+              })
+            }
           </div>
         </section>
       </MainHome>

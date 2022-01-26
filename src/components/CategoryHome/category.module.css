@@ -1,0 +1,35 @@
+.mycard1{
+    border-radius: 8px;
+    height: 220px;
+    width: 206px;
+    background-image: url(../../assets/img/g1.svg);
+    cursor: pointer;
+}
+.mycard2{
+    border-radius: 8px;
+    height: 220px;
+    width: 206px;
+    background-image: url(../../assets/img/g2.svg);
+    cursor: pointer;
+}
+.mycard3{
+    border-radius: 8px;
+    height: 220px;
+    width: 206px;
+    background-image: url(../../assets/img/g3.svg);
+    cursor: pointer;
+}
+.mycard4{
+    border-radius: 8px;
+    height: 220px;
+    width: 206px;
+    background-image: url(../../assets/img/g4.svg);
+    cursor: pointer;
+}
+.mycard5{
+    border-radius: 8px;
+    height: 220px;
+    width: 206px;
+    background-image: url(../../assets/img/g5.svg);
+    cursor: pointer;
+}
