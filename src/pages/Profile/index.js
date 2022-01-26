@@ -41,14 +41,21 @@ const Profile = () => {
         email: form.email,
         phone_number: form.phone_number,
         gender: gender,
-        DOB : user.DOB,
+        DOB : '2020-01-01',
         profile_picture : null
       },
       method: `PUT`,
       url: `/users/customer/${userId}`,
     })
     .then((res) => {
-        console.log(res.data.data)
+        setUser({
+          name: form.name,
+          email: form.email,
+          phone_number: form.phone_number,
+          gender: gender,
+          DOB : '2020-01-01',
+          profile_picture : null
+        })
     })
     .catch((err) => {
         console.log(err)
@@ -56,7 +63,7 @@ const Profile = () => {
   };
 
   const handleGender = (e) => {
-    console.log(e.target.value);
+    setGender(e.target.value)
   };
 
   console.log(user);
@@ -136,9 +143,9 @@ const Profile = () => {
                       <Input
                         className={`${styles.inputForm1} mt-1`}
                         onChange={handleGender}
-                        name="male"
+                        name="gender"
                         type="radio"
-                        value="Male"
+                        value="male"
                       />{" "}
                       Male
                     </div>
@@ -146,9 +153,9 @@ const Profile = () => {
                       <Input
                         className={`${styles.inputForm1} mt-1`}
                         onChange={handleGender}
-                        name="female"
+                        name="gender"
                         type="radio"
-                        value="Female"
+                        value="female"
                       />{" "}
                       Female
                     </div>
