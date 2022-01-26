@@ -8,7 +8,7 @@ const UserContext = ({children}) => {
         const userId = JSON.parse(localStorage.getItem('userId'))
         if (userId) {
             axios({
-                baseURL : `${process.env.REACT_APP_URL_BACKEND}`,
+                baseURL : `https://blanja-app-2codeblue.herokuapp.com`,
                 method : 'GET',
                 url : `/users/customer/${userId}`
             })
