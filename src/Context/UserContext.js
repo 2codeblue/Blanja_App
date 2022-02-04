@@ -3,15 +3,20 @@ import React, { createContext, useEffect, useState } from 'react';
 
 export const userContext = createContext(null);
 const UserContext = ({children}) => {
-    const [user, setUser] = useState(null)
+    const [user, setUser]= useState({
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        phone_number: "",
+        gender: "",
+        DOB: null,
+        profile_picture: "",
+    })
     useEffect(()=>{
         const userId = JSON.parse(localStorage.getItem('userId'))
         if (userId) {
-            axios({
-                baseURL : `https://blanja-app-2codeblue.herokuapp.com`,
-                method : 'GET',
-                url : `/users/customer/${userId}`
-            })
+            axios.get(`https://blanja-app-2codeblue.herokuapp.com/users/customer/${userId}`)
             .then((res) => {
                 const result = res.data.data[0]
                 setUser(result)

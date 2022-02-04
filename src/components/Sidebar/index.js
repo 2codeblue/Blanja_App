@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import {BsPencil, BsPerson} from 'react-icons/bs';
 import {GoLocation} from 'react-icons/go';
 import {FiLogOut} from 'react-icons/fi';
@@ -7,32 +7,33 @@ import {BiTask} from 'react-icons/bi';
 import styles from './sidebar.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { userContext } from '../../Context/UserContext';
 
 
 
 
 const Sidebar = () => {
 
-    const [user, setUser]= useState()
+    const {user, setUser}= useContext(userContext)
     const navigate = useNavigate()
 
-    useEffect(()=>{
-      const userFromLS = JSON.parse(localStorage.getItem("userId"))
-    //   console.log(userFromLS);
-      axios({
-        baseURL : `${process.env.REACT_APP_API_URL}`,
-        method : 'GET',
-        url : `/users/${userFromLS}`
-    })
-      .then((res) => {
-        const result = res.data.data;
-        console.log(result);
-        setUser(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    },[])
+    // useEffect(()=>{
+    //   const userFromLS = JSON.parse(localStorage.getItem("userId"))
+    // //   console.log(userFromLS);
+    //   axios({
+    //     baseURL : `${process.env.REACT_APP_API_URL}`,
+    //     method : 'GET',
+    //     url : `/users/${userFromLS}`
+    // })
+    //   .then((res) => {
+    //     const result = res.data.data;
+    //     console.log(result);
+    //     setUser(result);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // },[])
 
     const handleLogout = () => {
       localStorage.removeItem('auth')
@@ -47,7 +48,7 @@ const Sidebar = () => {
         <div className="infouser d-flex align-items-center">
             <div className="userphoto m-3"><img className={`${styles.imguser} rounded-circle`} src="https://cdn1.vectorstock.com/i/1000x1000/71/90/blank-avatar-photo-icon-design-vector-30257190.jpg" alt="" /></div>
             <div className="edit">
-                <div className="username fw-bold">Nanang Ismail</div>
+                <div className="username fw-bold">{user.name}</div>
                 <div className={`${styles.cpointer} editprofile text-black-50`}><p className={styles.cpointer}><BsPencil/> Ubah profile </p></div>
             </div>
         </div>

@@ -10,18 +10,23 @@ import Sidebar from '../../components/Sidebar';
 const Profile = () => {
     const [form, setForm] = useState({ name: "", email: "", phone_number: "" });
     const [gender, setGender] = useState("");
-    const [user, setUser]= useState(null)
+    const [user, setUser]= useState({
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        phone_number: "",
+        gender: "",
+        DOB: null,
+        profile_picture: "",
+    })
     const userFromLS = JSON.parse(localStorage.getItem("userId"))
 
     useEffect(()=>{
       // console.log(userFromLS);
-      axios({
-        baseURL : `https://blanja-app-2codeblue.herokuapp.com/`,
-        method : 'GET',
-        url : `/users/customer/${userFromLS}`
-    })
+      axios.get( `https://blanja-app-2codeblue.herokuapp.com/users/customer/${userFromLS}`)
       .then((res) => {
-        const result = res.data.result;
+        const result = res.data.data[0];
         console.log(result);
         setUser(result);
       })
@@ -141,14 +146,14 @@ const Profile = () => {
                             <label className="input-name mt-2" htmlFor="Name">
                                 Date of birth
                             </label>
-                            <Input
+                            {/* <Input
                                 name="DOB"
                                 className={`${styles.inputForm}`}
                                 type="text"
                                 id="DOB"
                                 placeholder={user? user.DOB.toLocaleDateString() : `31/09/1988`}
                                 disabled
-                            />
+                            /> */}
                 </div>
                         <Button 
                             className={`${styles.lowerButtons} ${styles.redButton} bg-primary ms-5 mt-3`}
