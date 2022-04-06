@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Navbar from '../../components/Navbar';
 import styles from '../MyBag/mybag.module.css'
 import ProdImg from '../../assets/img/mybagimg.svg'
 import Button from '../../components/Button';
 import COModal from '../../components/COModal';
 import axios from 'axios';
+import { userContext } from "../../Context/UserContext";
+
 
 
 const Checkout = () => {
     // eslint-disable-next-line no-unused-vars
     const [cart, setCart] = useState([])
     const [order, setOrder] = useState([])
+    const { user, setUser } = useContext(userContext);
     const customer_bags_id = JSON.parse(localStorage.getItem("customer_bags_id"));
     const user_id = JSON.parse(localStorage.getItem("userId"));
     const [totalPrice, setTotalPrice] = useState(0);
@@ -60,9 +63,9 @@ const Checkout = () => {
     <h5>Shipping Address</h5>
     <section className="d-flex">
         <div className="left">
-            <div className={`mt-3 mb-5 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
+            <div className={`mt-3 mb-5 p-3 shadow-sm m-2 ${styles.boxUpper}`}>
                 <div className="wrapper w-100 justify-content-between my-2">
-                    <h5>Andreas Jean</h5>
+                    <h5>{user ? user.name : `Loading..` }</h5>
                     <p>Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181</p>
                     <Button 
                     className={`p-2 bg-transparent outline-secondary text-secondary px-5 ${styles.buttonAddress}`}

@@ -131,7 +131,7 @@ const DetailProduct = () => {
           <p className="text-secondary mt-5 mb-5">
             Home {">"} Category {">"} {product ? product.category_name : `Loading Category`}
           </p>
-          <section className={`h-25 d-flex form-prod`}>
+          <section className={`h-25 d-flex form-prod mb-5`}>
             <div className={`${styles.prodformleft} h-100 me-1`}>
               <img src={product ? product.image1 : 'https://motionarray.imgix.net/preview-163378-bNxCdvwW1X-high_0004.jpg'} alt="" className={styles.prodPic} />
               <div
@@ -232,8 +232,8 @@ const DetailProduct = () => {
             </div>
           </section>
 
-          <section className={`${styles.descriptionProd}`}>
-            <h3 className="my-5">Product Information</h3>
+          <section className={`${styles.descriptionProd} mt-5`}>
+            <h3 className="mb-5">Product Information</h3>
             <h5>Condition</h5>
             <h4 className="text-primary mb-5">{product ? product.product_condition : `Loading`}</h4>
 

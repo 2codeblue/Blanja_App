@@ -9,7 +9,7 @@ import Sidebar from "../../components/Sidebar";
 import { userContext } from "../../Context/UserContext";
 
 const Profile = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone_number: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone_number: "", DOB: "" });
   const [gender, setGender] = useState("");
   const { user, setUser } = useContext(userContext);
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -41,7 +41,7 @@ const Profile = () => {
         email: form.email,
         phone_number: form.phone_number,
         gender: gender,
-        DOB : '2020-01-01',
+        DOB : form.DOB,
         profile_picture : null
       },
       method: `PUT`,
@@ -166,11 +166,13 @@ const Profile = () => {
                     </label>
                     <Input
                       name="DOB"
+                      onChange={handleChange}
                       className={`${styles.inputForm}`}
-                      type="text"
+                      type="date"
                       id="DOB"
                       placeholder={user ? user.DOB : `Loading`}
-                      disabled
+                      value={form.DOB}
+                      // disabled
                     />
                   </div>
                   <Button

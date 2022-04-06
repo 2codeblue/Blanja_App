@@ -43,7 +43,7 @@ const HomePage = () => {
           </div>
         </section>
         <section>
-          <h2>Popular</h2>
+          <h2 className='mt-5'>Popular</h2>
           <p className="text-black-50">
             Find clothes that are trending recently
           </p>

@@ -93,13 +93,13 @@ const Login = () => {
         <h5 className="fw-bold my-4">Please Login Your Account</h5>
         <div className="my-3">
           <Button style={{backgroundColor : clickedButton}}
-            className="btn-tabs rounded-start"
+            className={!customer? "btn-tabs rounded-start" : "btn-tabs-2 rounded-start text-white"}
             onClick={checkButtonNameClick}
           >
             Customer
           </Button>
           <Button
-            className="btn-tabs rounded-end"
+            className={customer? "btn-tabs rounded-start" : "btn-tabs-2 rounded-start text-white"}
             onClick={checkButtonNameClick}
           >
             Seller

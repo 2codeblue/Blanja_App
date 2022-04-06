@@ -114,51 +114,52 @@ const MyBag = () => {
                 </div>
               </div>
               {/* cart items here using dummy data from cart array*/}
-              {cart.map((cartItem) => {
+              {cart.map((cartItems) => {
                 return (
                   <div
                     className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}
-                    key={cartItem.id}
+                    key={cartItems.id}
+                    onClick={()=>navigate(`/detail-product/${cartItems.id}`)}
                   >
                     <div className="wrapper d-flex w-100 justify-content-between">
                       <div className={`d-flex ${styles.width1}`}>
                         <Input
                           type="checkbox"
-                          name={cartItem.name}
-                          value={cartItem.id}
+                          name={cartItems.name}
+                          value={cartItems.id}
                           className={`me-3 ${styles.checkboxLower}`}
                           defaultChecked={false}
                         />
                         <img
-                          src={cartItem.image1}
+                          src={cartItems.image1}
                           className={`${styles.prodImg} me-3`}
                           alt=""
                         />
                         <h6 className="mt-3">
-                          {cartItem.name} <br />
+                          {cartItems.name} <br />
                           <span className="text-secondary">
-                            {cartItem.seller}
+                            {cartItems.seller}
                           </span>
                         </h6>
                       </div>
                       <div className="d-flex buttons qty mt-3">
                         <Button
                           className={`${styles.formButton} ${styles.buttonMin} me-2`}
-                          onClick={() => handleDecrementQty(cartItem.id)}
+                          onClick={() => handleDecrementQty(cartItems.id)}
                         >
                           -
                         </Button>
                         <div className={`${styles.formButton}`}>
-                          {cartItem.quantity}
+                          {cartItems.quantity}
                         </div>
                         <Button
                           className={`${styles.formButton} ${styles.buttonPlus}`}
-                          onClick={() => handleIncrementQty(cartItem.id)}
+                          onClick={() => handleIncrementQty(cartItems.id)}
                         >
                           +
                         </Button>
                       </div>
-                      <h6 className="price mt-3">$ {cartItem.price}</h6>
+                      <h6 className="price mt-3">$ {cartItems.price}</h6>
                     </div>
                   </div>
                 );
