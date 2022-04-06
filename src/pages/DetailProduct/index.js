@@ -131,7 +131,7 @@ const DetailProduct = () => {
           <p className="text-secondary mt-5 mb-5">
             Home {">"} Category {">"} {product ? product.category_name : `Loading Category`}
           </p>
-          <section className={`h-25 d-flex form-prod mb-5`}>
+          <section className={`d-flex ${styles.formProd} mb-5`}>
             <div className={`${styles.prodformleft} h-100 me-1`}>
               <img src={product ? product.image1 : 'https://motionarray.imgix.net/preview-163378-bNxCdvwW1X-high_0004.jpg'} alt="" className={styles.prodPic} />
               <div

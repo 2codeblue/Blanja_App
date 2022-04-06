@@ -42,7 +42,7 @@ const Sidebar = () => {
         <div
           className={`${styles.cpointer} myaccout d-flex align-items-center mt-4`}
         >
-          <div className="icon px-2 bg-primary fs-4 rounded-circle">
+          <div className="icon p-2 bg-primary fs-4 rounded-circle">
             <BsPerson />
           </div>
           <div className="infosetting ps-3">
@@ -54,7 +54,7 @@ const Sidebar = () => {
         <div
           className={`${styles.cpointer} myadress d-flex align-items-center mt-4`}
         >
-          <div className="icon px-2 bg-warning fs-4 rounded-circle">
+          <div className="icon p-2 bg-warning fs-4 rounded-circle">
             <GoLocation />
           </div>
           <div className="infosetting ps-3">
@@ -69,7 +69,7 @@ const Sidebar = () => {
         <div
           className={`${styles.cpointer} myorder d-flex align-items-center mt-4`}
         >
-          <div className="icon px-2 bg-info fs-4 rounded-circle">
+          <div className="icon p-2 bg-info fs-4 rounded-circle">
             <BiTask />
           </div>
           <div className="infosetting p-3">
@@ -82,7 +82,7 @@ const Sidebar = () => {
           className={`${styles.cpointer} logout d-flex align-items-center mt-4`}
           onClick={handleLogout}
         >
-          <div className="icon px-2 bg-danger fs-4 rounded-circle">
+          <div className="icon p-2 bg-danger fs-4 rounded-circle">
             <FiLogOut />
           </div>
           <div className="infosetting ps-3">Logout</div>

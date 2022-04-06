@@ -1,5 +1,5 @@
 .con{
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .boxUpper{
@@ -73,4 +73,8 @@
 
 .width1{
     width: 15rem;
+}
+
+.hover :hover{
+    color: #0d6efd;
 }

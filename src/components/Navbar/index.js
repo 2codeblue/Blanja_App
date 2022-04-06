@@ -52,7 +52,7 @@ const Navbar = () => {
                         <div className="cart-icon fs-4 me-5 text-secondary"><p onClick={() => navigate('/my-bag')} className={styles.carticon}><FiShoppingCart /></p></div>
                         <div className="bell-ntf fs-4 me-5 text-secondary"><AiOutlineBell /></div>
                         <div className="message fs-4 me-5 text-secondary"><AiOutlineMail /></div>
-                        <div><img onClick={() => navigate('/profile')} className={`${styles.iconuserimg} rounded-circle`} src='https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png' alt='userprofile' /></div>
+                        <div><img onClick={() => navigate('/profile')} className={`${styles.iconuserimg} rounded-circle`} src="https://cdn1.vectorstock.com/i/1000x1000/71/90/blank-avatar-photo-icon-design-vector-30257190.jpg" alt='userprofile' /></div>
                     </div>
                 </div>
             </div>

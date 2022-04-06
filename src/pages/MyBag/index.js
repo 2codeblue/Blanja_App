@@ -66,25 +66,32 @@ const MyBag = () => {
   const handleOnClickToCheckout = () => {
     axios({
       baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
-      data : {
-        customer_bags_id : customer_bags_id, 
-        total_price : totalPrice, 
-        total_quantity :totalQuantity, 
-        customer_id : user_id
+      data: {
+        customer_bags_id: customer_bags_id,
+        total_price: totalPrice,
+        total_quantity: totalQuantity,
+        customer_id: user_id
       },
-      method : 'POST',
-      url : `/orders/add-order`
+      method: 'POST',
+      url: `/orders/add-order`
     })
-    .then((res) => {
-      const result = res.data.data;
-      console.log(result)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        const result = res.data.data;
+        console.log(result)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     navigate(`/checkout`)
   }
 
+  const handleDel = (id) => {
+    console.log(id, "akan di-delete");
+  }
+
+  const handleDelAll = () => {
+    //ngapus all items dari cart
+  }
   console.log(cart);
   console.log(totalPrice);
   console.log(totalQuantity);
@@ -99,18 +106,19 @@ const MyBag = () => {
               <div className={`mt-3 mb-5 p-2 shadow-sm m-2 ${styles.boxUpper}`}>
                 <div className="wrapper d-flex w-100 justify-content-between">
                   <div className="d-flex">
-                    <Input
+                    {/* <Input
                       type="checkbox"
                       name="AllItems"
                       value="AllItems"
                       className={`me-3 ${styles.checkbox}`}
-                    />
+                    /> */}
                     <h5 className="mt-2">
-                      Select all items{" "}
-                      <span className="text-secondary">(2 items selected)</span>
+                      Selected items{" "}
+                      <span className="text-secondary">({cart.length} items selected)</span>
                     </h5>
                   </div>
-                  <h6 className="text-primary me-0 mt-2">Delete</h6>
+                  <h6 className="text-primary me-0 mt-2 pointer"
+                  onClick={handleDelAll}>Delete</h6>
                 </div>
               </div>
               {/* cart items here using dummy data from cart array*/}
@@ -119,47 +127,54 @@ const MyBag = () => {
                   <div
                     className={`my-3 p-2 shadow-sm m-2 ${styles.boxUpper}`}
                     key={cartItems.id}
-                    onClick={()=>navigate(`/detail-product/${cartItems.id}`)}
                   >
-                    <div className="wrapper d-flex w-100 justify-content-between">
-                      <div className={`d-flex ${styles.width1}`}>
-                        <Input
+                    <div className="wrapper d-flex w-100 align-items-center justify-content-between">
+                      <div className={`d-flex ${styles.width1} align-items-center`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+                        fill="currentColor" class={`pointer bi bi-trash3 me-3 ${styles.hover}`} 
+                        viewBox="0 0 16 16"
+                        onClick={()=>handleDel(cartItems.product_id)}
+                        >
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                        </svg>
+                        {/* <Input
                           type="checkbox"
                           name={cartItems.name}
                           value={cartItems.id}
                           className={`me-3 ${styles.checkboxLower}`}
                           defaultChecked={false}
-                        />
+                        /> */}
                         <img
                           src={cartItems.image1}
-                          className={`${styles.prodImg} me-3`}
+                          className={`${styles.prodImg} pointer me-3`}
                           alt=""
+                          onClick={() => navigate(`/detail-product/${cartItems.product_id}`)}
                         />
-                        <h6 className="mt-3">
+                        <h6 className="mb-0">
                           {cartItems.name} <br />
                           <span className="text-secondary">
                             {cartItems.seller}
                           </span>
                         </h6>
                       </div>
-                      <div className="d-flex buttons qty mt-3">
-                        <Button
+                      <div className="d-flex buttons qty">
+                        {/* <Button
                           className={`${styles.formButton} ${styles.buttonMin} me-2`}
                           onClick={() => handleDecrementQty(cartItems.id)}
                         >
                           -
-                        </Button>
+                        </Button> */}
                         <div className={`${styles.formButton}`}>
-                          {cartItems.quantity}
+                          x  {cartItems.quantity}
                         </div>
-                        <Button
+                        {/* <Button
                           className={`${styles.formButton} ${styles.buttonPlus}`}
                           onClick={() => handleIncrementQty(cartItems.id)}
                         >
                           +
-                        </Button>
+                        </Button> */}
                       </div>
-                      <h6 className="price mt-3">$ {cartItems.price}</h6>
+                      <h6 className="price mb-0">$ {cartItems.price}</h6>
                     </div>
                   </div>
                 );

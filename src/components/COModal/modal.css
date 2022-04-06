@@ -27,12 +27,6 @@
     color: #FFFFFF;
 }
 
-.continue-button:hover{
-    cursor: pointer;
-    background-color: #FFFFFF;
-    color:#6379F4;
-}
-
 .close-modal{
     cursor: pointer;
 }

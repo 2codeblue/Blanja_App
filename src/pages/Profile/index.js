@@ -72,7 +72,7 @@ const Profile = () => {
       className={`containder-fluid bg-white ${styles.con} d-flex flex-column`}
     >
       <Navbar />
-      <div className="d-flex w-100 flex-fill">
+      <div className={`d-flex w-100 flex-fill ${styles.mainCon}`}>
         <Sidebar />
         <div className={`w-75 bg-light profileBox pt-3`}>
           <div className={`${styles.profilebox} mt-5 ms-5 p-3 bg-white`}>

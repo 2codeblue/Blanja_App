@@ -1,0 +1,22 @@
+.modalpin{
+    position: fixed;
+    border-radius: .5rem;
+    top: 10vh;
+    left: 12.5vw;
+    width: 75vw;
+    overflow-y: auto;
+    height: 80vh;
+}
+
+.checkboxLower{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.lowerButtons {
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    padding: 0.25rem;
+    border: solid 1px #d4d4d4;
+}  
+      

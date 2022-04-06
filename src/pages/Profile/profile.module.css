@@ -1,5 +1,5 @@
 .con {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .profImg {
@@ -10,8 +10,8 @@
 
 .profilebox {
   width: 60vw;
-  height: 70vh;
-  border: 0.5px solid #9b9b9b;
+  min-height: 70vh;
+  border: 0.5px solid #9b9b9b
 }
 
 .inputForm {
@@ -55,19 +55,18 @@
 }
 
 .addres {
-  width: 710px;
   height: 86px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px dashed #9b9b9b;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 1rem;
 }
 .detailAddres{
-    height: 170px;
-    width: 710px;
-    border: 1px solid #456BF3;
+  min-height: 10rem;
+  border: 2px solid #456BF3;
+  border-radius: 1rem;
 }
 .tabs{
   color: #9b9b9b;
@@ -75,4 +74,15 @@
 }
 .tabs:hover{
   color: #456BF3;
+}
+
+.detailAddress{
+  min-height: 10rem;
+  border: 1px solid #9b9b9b;
+  border-radius: 1rem;
+}
+
+.btnHover:hover{
+  background-color: #456BF3!important;
+  cursor: pointer;
 }

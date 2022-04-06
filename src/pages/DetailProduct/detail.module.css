@@ -88,3 +88,7 @@
     width: 378px;
     height: 378px;
 }
+
+.formProd{
+    min-height: 25vh;
+}
