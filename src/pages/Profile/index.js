@@ -53,7 +53,7 @@ const Profile = () => {
           email: form.email,
           phone_number: form.phone_number,
           gender: gender,
-          DOB : '2020-01-01',
+          DOB : form.DOB,
           profile_picture : null
         })
     })
@@ -176,10 +176,15 @@ const Profile = () => {
                     />
                   </div>
                   <Button
-                    className={`${styles.lowerButtons} ${styles.redButton} bg-primary ms-5 mt-3`}
+                    className={!form.DOB || !form.email || !form.name || !form.phone_number || !gender 
+                      ?
+                       `${styles.lowerButtons} ${styles.redButton} bg-secondary ms-5 my-2`
+                        :
+                        `${styles.lowerButtons} ${styles.redButton} bg-primary ms-5 my-2`}
                     onClick={handleCustomerPU}
+                    disabled={!form.DOB || !form.email || !form.name || !form.phone_number || !gender}
                   >
-                    Save
+                  Save
                   </Button>
                 </div>
                 <div className="w-25 profpic-setting">

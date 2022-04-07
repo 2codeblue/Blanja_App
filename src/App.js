@@ -17,6 +17,7 @@ import Order from './pages/Profile/Order';
 import ConfirmLog from './pages/Auth/ConfirmLog';
 import CategoryPage from './pages/CategoryPage';
 import PublicRoute from './components/PublicRoute';
+import OrderDetails from './pages/Profile/OrderDetails';
 
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
         <Route path="/profile" element={<RequireAuth><Profile/></RequireAuth>}/>
         <Route path="/Shipping-Addres" element={<RequireAuth> <ShippAddres/> </RequireAuth>}/>
         <Route path="/My-Order" element={<RequireAuth><Order/></RequireAuth>}/>
+        <Route path="/My-Order/:id" element={<RequireAuth><OrderDetails/></RequireAuth>}/>
+
 
         {/* Public Route, Must Logout */}
         <Route path="/signup" element={<PublicRoute><SignUp/></PublicRoute>}/>

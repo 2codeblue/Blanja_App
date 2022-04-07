@@ -16,6 +16,79 @@ const MyBag = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [cart, setCart] = useState([]);
 
+  const handleDel = (id) => {
+    axios({
+      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+      method: "DELETE",
+      url: `bags/item`,
+      data: {
+        bag_item_id: id,
+        customer_bags_id: customer_bags_id
+      }
+    })
+    .then((res)=> {
+      axios({
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+        method: "GET",
+        url: `bags/${customer_bags_id}`,
+      })
+        .then((res) => {
+          const result = res.data.data;
+          let price = 0;
+          let qty = 0;
+          result.forEach((item) => {
+            price = price + item.price * item.quantity;
+            qty = qty + item.quantity;
+          });
+          setTotalPrice(price);
+          setTotalQuantity(qty);
+          setCart(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const handleDelAll = () => {
+    axios({
+      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+      method: "DELETE",
+      url: `bags/all-items`,
+      data: {
+        customer_bags_id: customer_bags_id
+      }
+    })
+    .then((res)=> {
+      axios({
+        baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+        method: "GET",
+        url: `bags/${customer_bags_id}`,
+      })
+        .then((res) => {
+          const result = res.data.data;
+          let price = 0;
+          let qty = 0;
+          result.forEach((item) => {
+            price = price + item.price * item.quantity;
+            qty = qty + item.quantity;
+          });
+          setTotalPrice(price);
+          setTotalQuantity(qty);
+          setCart(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   useEffect(() => {
     axios({
       baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
@@ -67,13 +140,6 @@ const MyBag = () => {
     navigate(`/checkout`)
   }
 
-  const handleDel = (id) => {
-    console.log(id, "akan di-delete");
-  }
-
-  const handleDelAll = () => {
-    //ngapus all items dari cart
-  }
   console.log(cart);
   console.log(totalPrice);
   console.log(totalQuantity);
@@ -115,7 +181,7 @@ const MyBag = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
                         fill="currentColor" class={`pointer bi bi-trash3 me-3 ${styles.hover}`} 
                         viewBox="0 0 16 16"
-                        onClick={()=>handleDel(cartItems.product_id)}
+                        onClick={()=>handleDel(cartItems.id)}
                         >
                           <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                         </svg>
@@ -170,8 +236,9 @@ const MyBag = () => {
                   <h6>$ {totalPrice ? totalPrice : `Loading`}</h6>
                 </div>
                 <Button
-                  className={`${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`}
+                  className={cart.length > 0 ? `${styles.lowerButtons} bg-primary ${styles.redButton} mt-5` : `${styles.lowerButtons} bg-secondary ${styles.redButton} mt-5`}
                   onClick={handleOnClickToCheckout}
+                  disabled={cart.length<1}
                 >
                   Buy
                 </Button>

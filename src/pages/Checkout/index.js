@@ -37,7 +37,7 @@ const Checkout = () => {
                 });
                 setTotalPrice(price);
                 setCart(result);
-                setTotalQuantity=(qty)
+                setTotalQuantity(qty)
             })
             .catch((err) => {
                 console.log(err);
