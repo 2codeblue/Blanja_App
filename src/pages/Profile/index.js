@@ -186,7 +186,7 @@ const Profile = () => {
                   <div
                     className={`${styles.wrapper} w-100 d-flex flex-column justify-content-center`}
                   >
-                    <img src={ProfImg} className={`${styles.profImg}`} alt="" />
+                    <img src="https://cdn1.vectorstock.com/i/1000x1000/71/90/blank-avatar-photo-icon-design-vector-30257190.jpg" className={`${styles.profImg}`} alt="" />
                     <Button
                       className={`${styles.lowerButtons1} ${styles.redButton1} bg-transparent mt-3`}
                     >

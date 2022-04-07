@@ -1,32 +1,56 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
 import Input from '../Input';
 import './modal.css'
 
-const COModal = ({ handleModal, totalPrice }) => {
+const COModal = ({ handleModal, totalPrice, customer_bags_id, totalQuantity }) => {
 
     const [payment, setPayment] = useState('')
-
-    // methods pake use state get data dari backend
-    const methods = [{
-        id: 1,
-        name: "Gopay",
-        logo: "https://www.premiro.com/assets/images/aset/logo_metode/gopay-logo-new.png"
-    }, {
-        id: 2,
-        name: "Pos Indonesia",
-        logo: "https://th.bing.com/th/id/R.fdb4917a13237157aaa2985e2949d9ae?rik=ER4Bvz8dyVfVYw&riu=http%3a%2f%2f1.bp.blogspot.com%2f-sESNhLiiZi4%2fTqkRI1QG6CI%2fAAAAAAAAAuE%2fuEhd_RPIvGA%2fs1600%2fLogo%2bPos%2bIndonesia.png&ehk=W7CvWdyRWpxfuGN9eAwADuB5ixOwhxmUb%2bOr8NyEowc%3d&risl=&pid=ImgRaw&r=0"
-    }, {
-        id: 3,
-        name: "Mastercard",
-        logo: "https://logosmarcas.net/wp-content/uploads/2020/09/MasterCard-Logo-1979-1990.png"
-    }]
+    const [methods, setMethods] = useState([])
+    const UID = JSON.parse(localStorage.getItem('userId'))
+    const navigate = useNavigate()
+    useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_URL_BACKEND}/payment-methods`)
+        .then((res)=>{
+            const result = res.data.data
+            setMethods(result)
+        })
+        .catch((err)=> {
+            console.log(err);
+        })
+    }, [])
 
     const handleSetPayment = (e) => {
         setPayment(e.target.value)
     }
-    console.log(payment);
 
+    const handleCO = () => {
+        axios({
+            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+            data: {
+              customer_bags_id: customer_bags_id,
+              total_price: totalPrice,
+              total_quantity: totalQuantity,
+              customer_id: UID,
+              payment_method_id: payment
+            },
+            method: 'POST',
+            url: `/orders/add-order`
+          })
+            .then((res) => {
+              const result = res.data.data;
+              console.log(result)
+              localStorage.removeItem('customer_bags_id')
+              handleModal()
+              navigate('/My-Order')
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+      
+    }
     return (
         <div>
             <main class="con container-fluid d-flex flex-column p-0 justify-content-between">
@@ -67,11 +91,12 @@ const COModal = ({ handleModal, totalPrice }) => {
                         <p className='fw-bold'>$ 0.00</p>
                     </div>
 
-                    <div class="lower-wrapper w-100 d-flex justify-content-between shadow-sm">
+                    <div class="lower-wrapper pb-3 w-100 d-flex justify-content-between shadow-sm">
                         <p className='fw-bold ms-3'>Shopping Summary <br />
                             <span className='text-primary fw-bold'>$ {totalPrice}</span></p>
                         <Button class={!payment ? `continue-button bg-secondary text-white mx-3 my-2` : `pointer continue-button bg-primary mx-3 my-2`}
-                        disabled={!payment}>Buy</Button>
+                        disabled={!payment}
+                        onClick={handleCO}>Buy</Button>
                     </div>
                 </div>
             </main>

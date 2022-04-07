@@ -184,8 +184,8 @@ const SignUp = () => {
           )
       }
 
-      <Button className="btn-input" onClick={handleSubmitClick}>Primary</Button>
-      <h6 className="mt-3">Already have a Tokopedia account? <Link to="/login" className="text-decoration-none"> Login</Link> </h6>
+      <Button className="btn-input" onClick={handleSubmitClick}>Sign Up</Button>
+      <h6 className="mt-3">Already have an account? <Link to="/login" className="text-decoration-none"> Login</Link> </h6>
     </Main>
   );
 };

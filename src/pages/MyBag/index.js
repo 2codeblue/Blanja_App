@@ -41,47 +41,29 @@ const MyBag = () => {
 
   //
 
-  const handleIncrementQty = (id) => {
-    const index = cart.findIndex((item) => item.id === id);
-    let cartItem = cart[index];
-    cartItem.quantity++;
-    updatecartItem(); //originally supposed to be cart update
-  };
+  // const handleIncrementQty = (id) => {
+  //   const index = cart.findIndex((item) => item.id === id);
+  //   let cartItem = cart[index];
+  //   cartItem.quantity++;
+  //   updatecartItem(); //originally supposed to be cart update
+  // };
 
-  const handleDecrementQty = (id) => {
-    const index = cart.findIndex((item) => item.id === id);
-    let cartItem = cart[index];
-    if (cartItem.quantity <= 0) {
-      cartItem.quantity = 0;
-    } else {
-      cartItem.quantity--;
-    }
-    updatecartItem(); //originally supposed to be cart update
-  };
+  // const handleDecrementQty = (id) => {
+  //   const index = cart.findIndex((item) => item.id === id);
+  //   let cartItem = cart[index];
+  //   if (cartItem.quantity <= 0) {
+  //     cartItem.quantity = 0;
+  //   } else {
+  //     cartItem.quantity--;
+  //   }
+  //   updatecartItem(); //originally supposed to be cart update
+  // };
 
-  const updatecartItem = () => {
-    setCart(cart);
-  };
+  // const updatecartItem = () => {
+  //   setCart(cart);
+  // };
 
   const handleOnClickToCheckout = () => {
-    axios({
-      baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
-      data: {
-        customer_bags_id: customer_bags_id,
-        total_price: totalPrice,
-        total_quantity: totalQuantity,
-        customer_id: user_id
-      },
-      method: 'POST',
-      url: `/orders/add-order`
-    })
-      .then((res) => {
-        const result = res.data.data;
-        console.log(result)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     navigate(`/checkout`)
   }
 

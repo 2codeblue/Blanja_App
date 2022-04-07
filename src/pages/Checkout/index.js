@@ -6,16 +6,20 @@ import Button from '../../components/Button';
 import COModal from '../../components/COModal';
 import axios from 'axios';
 import { userContext } from "../../Context/UserContext";
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
 const Checkout = () => {
     // eslint-disable-next-line no-unused-vars
+    const navigate = useNavigate()
     const [cart, setCart] = useState([])
     const [order, setOrder] = useState([])
+    const [address, setAddress] = useState([])
     const { user, setUser } = useContext(userContext);
+    const [totalQuantity, setTotalQuantity] = useState(0);
     const customer_bags_id = JSON.parse(localStorage.getItem("customer_bags_id"));
-    const user_id = JSON.parse(localStorage.getItem("userId"));
+    const UID = JSON.parse(localStorage.getItem("userId"));
     const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         axios({
@@ -26,28 +30,44 @@ const Checkout = () => {
             .then((res) => {
                 const result = res.data.data;
                 let price = 0;
+                let qty = 0;
                 result.forEach((item) => {
                     price = price + item.price * item.quantity;
+                    qty = qty + item.quantity;
                 });
                 setTotalPrice(price);
                 setCart(result);
+                setTotalQuantity=(qty)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        axios({
+            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+            method: "GET",
+            url: `/addresses/${UID}`,
+        })
+            .then((res) => {
+                const result = res.data.data;
+                setAddress(result);
+                console.log(result);
             })
             .catch((err) => {
                 console.log(err);
             })
 
-        axios({
-            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
-            method: "GET",
-            url: `/orders/${user_id}`,
-        })
-            .then((res) => {
-                const result = res.data.data;
-                setOrder(result);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        // axios({
+        //     baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+        //     method: "GET",
+        //     url: `/orders/${user_id}`,
+        // })
+        //     .then((res) => {
+        //         const result = res.data.data;
+        //         setOrder(result);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
 
     }, [])
 
@@ -64,14 +84,22 @@ const Checkout = () => {
                 <section className="d-flex">
                     <div className="left">
                         <div className={`mt-3 mb-5 p-3 shadow-sm m-2 ${styles.boxUpper}`}>
-                            <div className="wrapper w-100 justify-content-between my-2">
-                                <h5>{user ? user.name : `Loading..`}</h5>
-                                <p>Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181</p>
-                                <Button
-                                    className={`p-2 bg-transparent outline-secondary text-secondary px-5 ${styles.buttonAddress}`}
-                                >Choose another address
-                                </Button>
-                            </div>
+                            {address.map((item, index) => {
+                                return (
+                                    item.address_primary === 1 ? (
+                                        <div className={`${styles.detailAddres}`}
+                                            key={index}>
+                                            <h5>{item.recipient_name}</h5>
+                                            <h6>{item.address_type}</h6>
+                                            <p>
+                                                {item.address}, {item.city}, {item.postal_code}
+                                            </p>
+                                            <div
+                                                className={`text-primary p-2 w-25 text-center bg-primary text-white rounded-3 pointer`}
+                                                onClick={() => navigate("/Shipping-Addres")}>Change Address</div>
+                                        </div>
+                                    ) : null)
+                            })}
                         </div>
                         {/* cart items here using dummy data from cart array*/}
                         {cart.map((cartItem, index) => {
@@ -115,7 +143,7 @@ const Checkout = () => {
                     </div>
                 </section>
             </div>
-            {displayModal && <COModal handleModal={handleModal} totalPrice={totalPrice} />}
+            {displayModal && <COModal customer_bags_id={customer_bags_id} totalQuantity={totalQuantity} handleModal={handleModal} totalPrice={totalPrice} />}
         </main>
     )
 };

@@ -125,10 +125,10 @@ const Login = () => {
           </Link>
         </div>
         <Button className="btn-input" onClick={handleSubmitClick}>
-          Primary
+          Login
         </Button>
         <h6 className="mt-3">
-          Don't have a Tokopedia accout ?{" "}
+          Don't have a an account ?{" "}
           <Link to="/SignUp" className="text-decoration-none">
             {" "}
             Register

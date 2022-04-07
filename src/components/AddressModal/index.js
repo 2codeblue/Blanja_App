@@ -3,6 +3,7 @@ import Button from '../Button';
 import Input from '../Input'
 import styles from './address.module.css'
 import { userContext } from "../../Context/UserContext";
+import axios from 'axios';
 
 const AddressModal = ({ handleModal }) => {
     const { user, setUser } = useContext(userContext);
@@ -20,15 +21,27 @@ const AddressModal = ({ handleModal }) => {
     }
     const handlePrimary = (e) => {
         if (e.target.checked) {
-            setAddress_primary(1)
+            setAddress_primary(true)
         } else {
-            setAddress_primary(0)
+            setAddress_primary(false)
         }
     }
     const handleSubmit = () => {
         const formSubmit = { ...form, address_primary, customer_id : user.id } //submit ke be pake form submit y
-        console.log(formSubmit);
-        console.log(user);
+        axios({
+            baseURL: `${process.env.REACT_APP_URL_BACKEND}`,
+            data: formSubmit,
+            method: `POST`,
+            url: `/addresses`,
+          })
+          .then((res) => {
+            console.log(res);
+            window.location.reload()
+        })
+          .catch((err) => {
+              console.log(err)
+          })
+      
     }
     return (
         <>
@@ -61,12 +74,11 @@ const AddressModal = ({ handleModal }) => {
                                 <p className="text-secondary">Recipient's telephone number</p>
                                 <Input
                                     className={`w-100 p-3`}
-                                    placeholder=''
                                     onChange={handleForm}
                                     value={form.recipient_phone_number}
                                     name="recipient_phone_number"
                                     type="number"
-                                    placeholder={user ? user.phone_number : `e.g. 081203...`}
+                                    placeholder={user ? user.phone_number : `e.g. 0812345...`}
                                 />
 
                             </div>

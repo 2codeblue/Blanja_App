@@ -1,5 +1,6 @@
 .con {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .profImg {
@@ -10,8 +11,9 @@
 
 .profilebox {
   width: 60vw;
-  min-height: 70vh;
-  border: 0.5px solid #9b9b9b
+  height: 70vh;
+  border: 0.5px solid #9b9b9b;
+  overflow-y: auto;
 }
 
 .inputForm {
@@ -80,9 +82,4 @@
   min-height: 10rem;
   border: 1px solid #9b9b9b;
   border-radius: 1rem;
-}
-
-.btnHover:hover{
-  background-color: #456BF3!important;
-  cursor: pointer;
 }
