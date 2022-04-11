@@ -79,7 +79,7 @@ const Login = () => {
           localStorage.setItem("auth", "1");
           localStorage.setItem("userId", JSON.stringify(sellerId));
           localStorage.setItem("userStatus", JSON.stringify(userStatus));
-          navigate("/");
+          window.location.replace("/");
         })
         .catch((err) => {
           console.log(err);

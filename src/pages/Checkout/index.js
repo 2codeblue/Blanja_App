@@ -100,6 +100,13 @@ const Checkout = () => {
                                         </div>
                                     ) : null)
                             })}
+                            {address.length < 1 && (
+                                <>
+                                    <div
+                                        className={`text-primary p-2 w-25 text-center bg-primary text-white rounded-3 pointer`}
+                                        onClick={() => navigate("/Shipping-Addres")}>Set New Address</div>
+                                </>
+                            )}
                         </div>
                         {/* cart items here using dummy data from cart array*/}
                         {cart.map((cartItem, index) => {
@@ -135,16 +142,21 @@ const Checkout = () => {
                                 <h6>$ {totalPrice}</h6>
                             </div>
                             <Button
-                                className={`${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`}
+                                className={address.length > 0 ? 
+                                    `${styles.lowerButtons} bg-primary ${styles.redButton} mt-5`
+                                :
+                                `${styles.lowerButtons} bg-secondary ${styles.redButton} mt-5`
+                            }
+                                disabled={address.length < 1}
                                 onClick={handleModal}
                             >Payment Method
                             </Button>
                         </div>
                     </div>
                 </section>
-            </div>
+            </div >
             {displayModal && <COModal customer_bags_id={customer_bags_id} totalQuantity={totalQuantity} handleModal={handleModal} totalPrice={totalPrice} />}
-        </main>
+        </main >
     )
 };
 
