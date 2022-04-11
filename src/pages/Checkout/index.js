@@ -147,7 +147,7 @@ const Checkout = () => {
                                 :
                                 `${styles.lowerButtons} bg-secondary ${styles.redButton} mt-5`
                             }
-                                disabled={address.length < 1}
+                                disabled={address.length < 0}
                                 onClick={handleModal}
                             >Payment Method
                             </Button>
